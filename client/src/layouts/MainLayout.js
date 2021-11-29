@@ -5,8 +5,10 @@ import Footer from "../components/Footer/Footer";
 const MainLayout = ({ children }) => {
   return (
     <div>
-      <Header />
-      {children}
+      <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
+        <Header />
+        {children}
+      </div>
       <Footer />
     </div>
   );

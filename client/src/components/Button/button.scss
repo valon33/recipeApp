@@ -1,0 +1,29 @@
+.button {
+  padding: 10px 30px;
+  border-radius: 5px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--midgrey);
+  box-shadow: 0px 3px 6px #00000029;
+  text-decoration: none;
+}
+
+.white {
+  border: 1px solid var(--midgrey);
+}
+
+.green {
+  background: var(--green) 0% 0% no-repeat padding-box;
+  color: #fff !important;
+  border: 1px solid var(--green);
+}
+
+// .header-btn a {
+//   margin-right: 10px;
+// }
+
+.or {
+  color: var(--orange);
+  //   margin: 0 10px;
+  //   text-align: center;
+}

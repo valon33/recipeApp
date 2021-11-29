@@ -10,9 +10,26 @@ h3 {
 }
 
 p {
-  color: var(--midgrey);
   font-size: 18px;
   line-height: 1.6;
   letter-spacing: 0.3px;
   font-weight: 300;
+  color: var(--midgrey);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+.orange {
+  color: var(--orange);
 }

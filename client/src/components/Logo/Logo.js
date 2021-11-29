@@ -5,8 +5,8 @@ const Logo = ({ color }) => {
   return (
     <div className="logo__box">
       <Link to="/" className="logo__link">
-        <span>Baby's</span>
-        <span>food place</span>
+        <span className="logo">Baby's</span>
+        <span className="logo__span">food place</span>
       </Link>
     </div>
   );

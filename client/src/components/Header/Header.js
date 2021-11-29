@@ -1,11 +1,14 @@
 import React from "react";
 import Logo from "../Logo/Logo";
+import NavLinks from "../Navigation/NavLinks/NavLinks";
+import NavButtons from "../Navigation/NavButtons/NavButtons";
 
 const Header = () => {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="header">
       <Logo />
-      <h1>Header</h1>
+      <NavLinks />
+      <NavButtons />
     </div>
   );
 };

@@ -4,7 +4,16 @@
 @import "./variables.scss";
 
 @import "../../components//Logo/logo.scss";
+@import "../../components/Navigation/NavLink/navlink.scss";
+@import "../../components/Navigation/NavLinks/navlinks.scss";
+@import "../../components/Button/button.scss";
+@import "../../components/Navigation/NavButtons/navbuttons.scss";
+@import "../../components/PageTitle/pagetitle.scss";
+@import "../../components/Spiner/Spiner.scss";
+@import "../../components/Card/card.scss";
+@import "../../components/Modal/modal.scss";
 @import "../../components/Header/header.scss";
 @import "../../components/Footer/footer.scss";
 @import "../../pages/Error/error.scss";
 @import "../../pages/Home/home.scss";
+@import "../../pages/Login/login.scss";

@@ -1,0 +1,29 @@
+.page__description {
+  display: flex;
+  justify-content: space-between;
+  margin: 100px 0 30px 0px;
+  padding: 0 30px;
+
+  &--title {
+    color: var(--green);
+  }
+
+  &--hr {
+    flex-grow: 1;
+    margin: 35px 20px 0 20px;
+  }
+  &--hr hr {
+    color: var(--green);
+    opacity: 0.3;
+  }
+
+  &--logo {
+    margin-bottom: 40px;
+  }
+
+  &--logo svg {
+    width: 40px;
+    height: auto;
+    color: var(--orange);
+  }
+}
