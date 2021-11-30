@@ -3,7 +3,7 @@ import NavLink from "../NavLink/NavLink";
 import Button from "../../Button/Button";
 
 const NavButtons = () => {
-    const [isLogedIn, setIsLogedIn] = useState(true);
+    const [isLogedIn, setIsLogedIn] = useState(false);
     return (
         <>
             {isLogedIn && (
