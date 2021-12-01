@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Button = ({ button, btnUrl, color, click }) => {
+const Button = ({ button, btnUrl, color, click,type }) => {
     return (
         <>
             {btnUrl && (
@@ -14,7 +14,7 @@ const Button = ({ button, btnUrl, color, click }) => {
                 </Link>
             )}
             {!btnUrl && (
-                <button className={`btn button ${color}`} onClick={click}>
+                <button type={type} className={`btn button ${color}`} onClick={click}>
                     {button}
                 </button>
             )}
