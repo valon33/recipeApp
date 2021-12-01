@@ -4,18 +4,22 @@
 
 .input__component {
     margin-bottom: 15px;
+    margin: 0 5px 15px 5px;
+    // padding: 5px;
 }
 
 .form {
     &-label {
         color: var(--orange);
         font-weight: 900;
+        display: inline-block;
+        margin-bottom: 10px;
     }
 
     &-control {
         display: block;
         width: 100%;
-        padding: 10px 15px;
+        padding: 5px 10px;
         font-size: 1rem;
         color: #212529;
         font-weight: 400;
@@ -78,4 +82,20 @@ input[type="date"] {
         background: var(--green);
         color: var(--white);
     }
+}
+
+.form-select {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }

@@ -15,7 +15,7 @@ const Input = ({ inputType, inputLabel, inputId,placeholder }) => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
             />
-        </div>
+        </div> 
     );
 };
 
