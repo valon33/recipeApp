@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
@@ -6,6 +7,7 @@ import Button from "../../components/Button/Button";
 import { useGlobalContext } from "../../Context/context";
 
 const LogIn = () => {
+  let navigate = useNavigate();
   const { login } = useGlobalContext();
   const [inputValue, setInputValue] = useState({ email: "", password: "" });
   const { email, password } = inputValue;
@@ -22,9 +24,7 @@ const LogIn = () => {
     console.log(email, password);
     e.preventDefault();
     login(email, password);
-
-    // setEmail("");
-    // setPassword("");
+    navigate("/");
   };
 
   return (

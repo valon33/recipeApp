@@ -4,7 +4,7 @@ import Button from "../../Button/Button";
 import { useGlobalContext } from "../../../Context/context";
 
 const NavButtons = () => {
-  const { isLogedIn } = useGlobalContext();
+  const { isLogedIn, logOut } = useGlobalContext();
 
   return (
     <>
@@ -26,15 +26,15 @@ const NavButtons = () => {
             navLinkUrl={"/"}
             navLink="Log Out"
             border
-            click={() => console.log("you are loged out")}
+            click={() => logOut()}
           />
         </ul>
       )}
       {!isLogedIn && (
         <div className="header__nav header__nav-btn">
-          <Button button="Log In" btnUrl={"login"} color={"white"} />
+          <Button button="Log In" btnUrl={"/login"} color={"white"} />
           <span className="or">or</span>
-          <Button button="Sign Up" btnUrl={"signup"} color={"green"} />
+          <Button button="Sign Up" btnUrl={"/signup"} color={"green"} />
         </div>
       )}
     </>

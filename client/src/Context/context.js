@@ -12,6 +12,7 @@ const initialState = {
   error: [],
   currentUser: {},
   allRecipes: [],
+  myRecipes: [],
 };
 
 const AppProvider = ({ children }) => {
@@ -37,6 +38,53 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const createRecipe = async (
+    recipe,
+    recipeTitle,
+    category,
+    prepTime,
+    shortDescription,
+    numberPeople,
+    author,
+    photo
+  ) => {
+    try {
+      const newRecipe = await axios.post("/api/v1/recipes", {
+        recipe,
+        recipeTitle,
+        category,
+        prepTime,
+        shortDescription,
+        numberPeople,
+        author,
+        photo,
+      });
+      console.log("new Recipe=>", newRecipe.data.data.recipe);
+
+      if (newRecipe)
+        dispatch({
+          type: "CREATE_RECIPE",
+          payload: newRecipe.data.data.recipe,
+        });
+    } catch (error) {
+      dispatch({ type: "ERROR", payload: error.response.data.message });
+    }
+  };
+
+  const getMyRecipes = async () => {
+    try {
+      const recipes = await axios.get("/api/v1/recipes/myrecipes");
+      console.log("My Recipies=>>", recipes.data);
+      if (recipes)
+        dispatch({
+          type: "GET_MY_RECIPES",
+          payload: recipes.data.data.recipes,
+        });
+    } catch (error) {
+      dispatch({ type: "ERROR", payload: error.response.data.message });
+    }
+  };
+
   // *USER FUNCTIONS
 
   const login = async (email, password) => {
@@ -45,25 +93,68 @@ const AppProvider = ({ children }) => {
         email,
         password,
       });
-      console.log("From the Context current User", user.data);
-      if (user) dispatch({ type: "LOGIN", payload: user.data });
+      console.log("From the Context current User", user.data.data.user);
+      if (user) dispatch({ type: "LOGIN", payload: user.data.data.user });
     } catch (error) {
       dispatch({ type: "ERROR", payload: error.response.data.message });
     }
+  };
+
+  const signUp = async ({
+    name,
+    lastName,
+    email,
+    password,
+    passwordConfirm,
+    birthDay,
+  }) => {
+    const date = new Date(birthDay);
+    try {
+      const newUser = await axios.post("/api/v1/users/signup", {
+        name,
+        lastName,
+        email,
+        password,
+        passwordConfirm,
+        date,
+      });
+      if (newUser)
+        dispatch({ type: "SIGNUP", payload: newUser.data.data.user });
+    } catch (error) {
+      dispatch({ type: "ERROR", payload: error.response.data.message });
+    }
+  };
+
+  const logOut = async () => {
+    await axios.get("/api/v1/users/logout");
+    dispatch({ type: "LOGOUT" });
   };
 
   const currentUser = async () => {
     try {
       const user = await axios.get("/api/v1/users/currentuser");
-      console.log("current user =>", user.data);
-      if (user) dispatch({ type: "CURRENT_USER", payload: user.data });
+      if (user) dispatch({ type: "CURRENT_USER", payload: user.data.user });
     } catch (error) {
-      //   console.log("curent user error ===>", error.response.statusText);
       dispatch({ type: "ERROR", payload: error.response.data.message });
     }
   };
 
   // *UTIL FUNCTIONS
+
+  const uploadPhoto = async (selectedPhoto) => {
+    try {
+      const data = new FormData();
+      data.append("photo", selectedPhoto);
+
+      const photo = await axios.post("/api/v1/upload", data);
+
+      if (photo) {
+        dispatch({ type: "UPLOAD_PHOTO" });
+      }
+    } catch (error) {
+      dispatch({ type: "ERROR", payload: error.response.data.message });
+    }
+  };
 
   const openModal = (id) => {
     dispatch({ type: "OPEN_MODAL", payload: id });
@@ -88,7 +179,12 @@ const AppProvider = ({ children }) => {
         getRecipes,
         openModal,
         closeModal,
+        signUp,
         login,
+        logOut,
+        createRecipe,
+        getMyRecipes,
+        uploadPhoto,
       }}
     >
       {children}

@@ -1,11 +1,33 @@
+import { useState } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
+import { useGlobalContext } from "../../Context/context";
 
 const SignUp = () => {
+  const { signUp } = useGlobalContext();
+  const [inputValue, setInputValue] = useState({
+    email: "",
+    password: "",
+    passwordConfirm: "",
+    name: "",
+    lastName: "",
+    birthDay: "",
+  });
+  const { email, password, passwordConfirm, name, lastName, birthDay } =
+    inputValue;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const SubmitSignUp = async (e) => {
     e.preventDefault();
-    console.log("Sign Up !");
+    signUp(inputValue);
   };
 
   return (
@@ -41,42 +63,60 @@ const SignUp = () => {
           >
             <div style={{ width: "50%", padding: "5px" }}>
               <Input
+                name="name"
                 inputType="text"
                 inputId="first-name"
                 placeholder="John"
                 inputLabel="First Name"
+                onChange={handleChange}
+                value={name}
               />
               <Input
+                name="lastName"
                 inputType="text"
                 inputId="last-name"
                 placeholder="Doe"
                 inputLabel="Last Name"
+                onChange={handleChange}
+                value={lastName}
               />
               <Input
+                name="email"
                 inputType="email"
                 inputId="email"
                 placeholder="johndoe@example.com"
                 inputLabel="Email"
+                onChange={handleChange}
+                value={email}
               />
             </div>
             <div style={{ width: "50%", padding: "5px" }}>
               <Input
+                name="birthDay"
                 inputType="date"
                 inputId="birth-day"
                 placeholder={"display From"}
                 inputLabel="Birth Day"
+                onChange={handleChange}
+                value={birthDay}
               />
               <Input
+                name="password"
                 inputType="password"
                 inputId="password"
                 placeholder="***********"
                 inputLabel="Password"
+                onChange={handleChange}
+                value={password}
               />
               <Input
+                name="passwordConfirm"
                 inputType="password"
                 inputId="password-confirm"
                 placeholder="***********"
                 inputLabel="Password Confirm"
+                onChange={handleChange}
+                value={passwordConfirm}
               />
             </div>
             <div className="col-12">

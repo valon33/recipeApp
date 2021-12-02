@@ -32,13 +32,12 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
   req.body.passwordConfirm = undefined;
   req.body.password = bcrypt.hashSync(req.body.password);
-
   const newUser = await User.create({
     name: req.body.name,
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
-    // date: req.body.date,
+    birthday: req.body.date,
   });
 
   createSendToken(newUser, 201, res);
@@ -87,8 +86,10 @@ exports.chekUser = catchAsync(async (req, res, next) => {
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   const currentUser = await User.findById(decoded.id);
-
-  res.status(200).json({ status: "success", user: currentUser });
+  const { email, name, lastname, birthday, _id, role } = currentUser;
+  const curUser = { email, name, lastname, birthday, _id, role };
+  res.status(200).json({ status: "success", user: curUser });
+  // res.status(200).json({ status: "success", user: currentUser });
 });
 
 // *desc   Middlewear for verification if the user is log in

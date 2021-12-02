@@ -7,12 +7,31 @@ const reducer = (state, action) => {
     return { ...state, allRecipes: action.payload, loading: false };
   }
 
+  if (action.type === "GET_MY_RECIPES") {
+    return { ...state, myRecipes: action.payload };
+  }
+
+  if (action.type === "CREATE_RECIPE") {
+    return {
+      ...state,
+      allRecipes: [state.allRecipes, { ...action.payload }],
+    };
+  }
+
+  if (action.type === "SIGNUP") {
+    return { ...state, currentUser: action.payload, isLogedIn: true };
+  }
+
   if (action.type === "LOGIN") {
     return { ...state, currentUser: action.payload, isLogedIn: true };
   }
 
   if (action.type === "CURRENT_USER" || action.type === "LOGIN") {
     return { ...state, currentUser: action.payload, isLogedIn: true };
+  }
+
+  if (action.type === "LOGOUT") {
+    return { ...state, currentUser: {}, isLogedIn: false };
   }
 
   if (action.type === "OPEN_MODAL") {
