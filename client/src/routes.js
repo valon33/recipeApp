@@ -6,6 +6,9 @@ import SignUp from "./pages/SignUp/SignUp";
 import MyProfile from "./pages/MyProfile/MyProfile";
 import MyRecipes from "./pages/MyRecipes/MyRecipes";
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
+import UpdateRecipe from "./pages/UpdateRecepie/UpdateRecipe";
+import SortedRecipe from "./pages/SortedRecipe/SortedRecipe";
+import Error from "./pages/Error/Error";
 
 const RecipeRoutes = () => {
   return (
@@ -15,7 +18,10 @@ const RecipeRoutes = () => {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/myprofile" element={<MyProfile />} />
       <Route path="/myrecipes" element={<MyRecipes />} />
+      <Route path="/myrecipes/:id" element={<UpdateRecipe />} />
       <Route path="/create" element={<CreateRecipe />} />
+      <Route path="/:category" element={<SortedRecipe />} />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 };
