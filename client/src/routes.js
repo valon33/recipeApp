@@ -11,19 +11,19 @@ import SortedRecipe from "./pages/SortedRecipe/SortedRecipe";
 import Error from "./pages/Error/Error";
 
 const RecipeRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<LogIn />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/myprofile" element={<MyProfile />} />
-      <Route path="/myrecipes" element={<MyRecipes />} />
-      <Route path="/myrecipes/:id" element={<UpdateRecipe />} />
-      <Route path="/create" element={<CreateRecipe />} />
-      <Route path="/:category" element={<SortedRecipe />} />
-      <Route path="*" element={<Error />} />
-    </Routes>
-  );
+    return (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/myprofile" element={<MyProfile />} />
+            <Route path="/myrecipes" element={<MyRecipes />} />
+            <Route path="/myrecipes/:id" element={<UpdateRecipe />} />
+            <Route path="/create" element={<CreateRecipe />} />
+            <Route path="/:category" element={<SortedRecipe />} />
+            <Route path="*" element={<Error />} />
+        </Routes>
+    );
 };
 
 export default RecipeRoutes;

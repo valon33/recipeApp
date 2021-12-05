@@ -9,7 +9,7 @@ const globalErrorHandler = require("./controllers/errorController");
 
 const recipeRouter = require("./routes/recipeRoutes");
 const userRouter = require("./routes/userRoutes");
-const uploadRouter = require("./routes/userRoutes");
+const uploadRouter = require("./routes/uploadRoutes");
 
 const app = express();
 
@@ -33,12 +33,12 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/upload", uploadRouter);
 
 app.all("*", (req, res, next) => {
-  next(
-    new AppError(
-      `Route ${req.originalUrl} is not defined on the server! 😒😒`,
-      404
-    )
-  );
+    next(
+        new AppError(
+            `Route ${req.originalUrl} is not defined on the server! 😒😒`,
+            404
+        )
+    );
 });
 
 app.use(globalErrorHandler);

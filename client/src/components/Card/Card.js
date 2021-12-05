@@ -47,7 +47,11 @@ const Card = ({
             <div className="card__img">
                 <span className="badge green card__badge">{category}</span>
                 <img
-                    src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2020/08/20/0/FNM_100120-Ultimate-Beef-Stew_s4x3.jpg.rend.hgtvcom.406.305.suffix/1597931275143.jpeg"
+                    src={
+                        photo
+                            ? `./images/${photo}`
+                            : "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2020/08/20/0/FNM_100120-Ultimate-Beef-Stew_s4x3.jpg.rend.hgtvcom.406.305.suffix/1597931275143.jpeg"
+                    }
                     className="card-img-top"
                     alt="card img"
                 />
@@ -73,7 +77,7 @@ const Card = ({
                     </span>
                 </div>
                 <button className=" green card--btn">
-                    <TiArrowForward onClick={() => openModal("id")} />
+                    <TiArrowForward onClick={() => openModal(id)} />
                 </button>
             </div>
         </div>
