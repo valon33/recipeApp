@@ -16,8 +16,7 @@ const UpdateRecipe = () => {
     myRecipes,
     uploadPhoto,
     currentUser,
-    getRecipe,
-    currentRecipe,
+    updateRecipe,
   } = useGlobalContext();
   const [inputValue, setInputValue] = useState({
     recipeTitle: "",
@@ -26,6 +25,7 @@ const UpdateRecipe = () => {
     numberPeople: "",
     shortDescription: "",
     recipe: "",
+    photo: "",
   });
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImg, setPreviewImg] = useState("");
@@ -36,19 +36,9 @@ const UpdateRecipe = () => {
     numberPeople,
     shortDescription,
     recipe,
+    photo,
   } = inputValue;
 
-  // useEffect(() => {
-  // getRecipe(id);
-  // setInputValue({
-  //   recipeTitle: currentRecipe.recipeTitle,
-  //   category: currentRecipe.category,
-  //   prepTime: currentRecipe.prepTime,
-  //   numberPeople: currentRecipe.numberPeople,
-  //   shortDescription: currentRecipe.shortDescription,
-  //   recipe: currentRecipe.recipe,
-  // });
-  // }, []);
   useEffect(() => {
     const rec = myRecipes.filter((recipe) => recipe._id === id);
     setInputValue((prev) => ({
@@ -59,23 +49,17 @@ const UpdateRecipe = () => {
       numberPeople: rec[0].numberPeople,
       shortDescription: rec[0].shortDescription,
       recipe: rec[0].recipe,
+      photo: rec[0].photo,
     }));
   }, []);
 
   useEffect(() => {
-    setPreviewImg(
-      "https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Spinach-Tomato-Pasta-bowl-500x375.jpg"
-    );
     if (selectedFile) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImg(reader.result);
       };
       reader.readAsDataURL(selectedFile);
-    } else {
-      setPreviewImg(
-        "https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Spinach-Tomato-Pasta-bowl-500x375.jpg"
-      );
     }
   }, [selectedFile]);
 
@@ -89,7 +73,6 @@ const UpdateRecipe = () => {
 
   const SubmitCreate = async (e) => {
     e.preventDefault();
-    const author = currentUser._id;
 
     if (
       recipe &&
@@ -99,32 +82,33 @@ const UpdateRecipe = () => {
       shortDescription &&
       numberPeople
     ) {
-      //   createRecipe(
-      //     recipe,
-      //     recipeTitle,
-      //     category,
-      //     prepTime,
-      //     shortDescription,
-      //     numberPeople,
-      //     author
-      //   );
-    }
+      if (selectedFile) {
+        const photo = selectedFile.name;
+        uploadPhoto(selectedFile);
+        updateRecipe(
+          id,
+          recipe,
+          recipeTitle,
+          category,
+          prepTime,
+          shortDescription,
+          numberPeople,
+          photo
+        );
+      }
 
-    if (selectedFile) {
-      const photo = selectedFile.name;
-      //   uploadPhoto(selectedFile);
-      //   createRecipe(
-      //     recipe,
-      //     recipeTitle,
-      //     category,
-      //     prepTime,
-      //     shortDescription,
-      //     numberPeople,
-      //     author,
-      //     photo
-      //   );
+      if (!selectedFile) {
+        updateRecipe(
+          id,
+          recipe,
+          recipeTitle,
+          category,
+          prepTime,
+          shortDescription,
+          numberPeople
+        );
+      }
     }
-    navigate("/myrecipes");
   };
 
   return (
@@ -143,7 +127,10 @@ const UpdateRecipe = () => {
         <div className="recipe__post--upload">
           <div className="recipe__post__photo">
             <img
-              src={previewImg}
+              src={
+                photo && !previewImg ? `/images/${photo}` : previewImg
+              }
+              // src={photo && !previewImg ? `./images/${photo}` : previewImg}
               alt="Avatar"
               className="recipe__post__photo--img"
             />

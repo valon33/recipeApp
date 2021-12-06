@@ -86,8 +86,8 @@ exports.chekUser = catchAsync(async (req, res, next) => {
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   const currentUser = await User.findById(decoded.id);
-  const { email, name, lastname, birthday, _id, role } = currentUser;
-  const curUser = { email, name, lastname, birthday, _id, role };
+  const { email, name, lastName, birthday, _id, role } = currentUser;
+  const curUser = { email, name, lastName, birthday, _id, role };
   res.status(200).json({ status: "success", user: curUser });
   // res.status(200).json({ status: "success", user: currentUser });
 });

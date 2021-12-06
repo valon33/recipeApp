@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import Card from "../../components/Card/Card";
 import PageTitle from "../../components/PageTitle/PageTitle";
@@ -6,43 +6,45 @@ import Spiner from "../../components/Spiner/Spiner";
 import { useGlobalContext } from "../../Context/context";
 
 const Home = () => {
-    const { getRecipes, allRecipes, loading, currentUser, error } =
-        useGlobalContext();
+  const { getRecipes, allRecipes, loading, currentUser, recipeLikes, error } =
+    useGlobalContext();
 
-    useEffect(() => {
-        getRecipes();
-    }, []);
-    console.log("Frome Home =>", currentUser);
-    console.log("Frome Home =>", error);
-    console.log("Frome Home =>", allRecipes);
-    return (
-        <MainLayout>
-            <PageTitle description="Fresh & New" />
-            <div className="recipe-cards">
-                {loading && <Spiner />}
-                {allRecipes &&
-                    allRecipes.map((recipe) => (
-                        <Card
-                            category={recipe.category}
-                            recipeTitle={recipe.recipeTitle}
-                            author={recipe.author}
-                            numberPeople={recipe.numberPeople}
-                            prepTime={recipe.prepTime}
-                            recipe={recipe.recipe}
-                            shortDescription={recipe.shortDescription}
-                            likes={recipe.likes}
-                            photo={recipe.photo}
-                            slug={recipe.slug}
-                            id={recipe._id}
-                        />
-                    ))}
-            </div>
-            <PageTitle description="Most Popular Recipes" />
-            <div className="recipe-cards">
-                <Card />
-            </div>
-        </MainLayout>
-    );
+  useEffect(() => {
+    getRecipes();
+  }, [recipeLikes]);
+
+  return (
+    <MainLayout>
+      <PageTitle description="Fresh & New" />
+      <div className="recipe-cards">
+        {loading && <Spiner />}
+        {allRecipes &&
+          allRecipes.map((recipe) => {
+            //   allRecipes.map((recipe) => {
+            const liked =
+              recipe.likes.filter((rec) => rec.user === currentUser._id)
+                .length > 0;
+            return (
+              <Card
+                category={recipe.category}
+                recipeTitle={recipe.recipeTitle}
+                numberPeople={recipe.numberPeople}
+                prepTime={recipe.prepTime}
+                shortDescription={recipe.shortDescription}
+                likes={recipe.likes}
+                photo={recipe.photo}
+                id={recipe._id}
+                liked={liked}
+              />
+            );
+          })}
+      </div>
+      <PageTitle description="Most Popular Recipes" />
+      <div className="recipe-cards">
+        <Card />
+      </div>
+    </MainLayout>
+  );
 };
 
 export default Home;
