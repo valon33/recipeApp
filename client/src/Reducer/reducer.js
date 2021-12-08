@@ -47,10 +47,14 @@ const reducer = (state, action) => {
   }
 
   if (action.type === "CURRENT_USER" || action.type === "LOGIN") {
-    return { ...state, currentUser: action.payload, isLogedIn: true };
+    return {
+      ...state,
+      currentUser: action.payload,
+      isLogedIn: true,
+    };
   }
   if (action.type === "UPDATE_USER") {
-    return { ...state, currentUser: action.payload, isLogedIn: true };
+    return { ...state, currentUser: action.payload.data.user, isLogedIn: true };
   }
 
   if (action.type === "LOGOUT") {

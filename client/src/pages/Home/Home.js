@@ -2,22 +2,17 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import Card from "../../components/Card/Card";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import Spiner from "../../components/Spiner/Spiner";
+import Spinner from "../../components/Spinner/Spinner";
 import { useGlobalContext } from "../../Context/context";
 
 const Home = () => {
-  const { getRecipes, allRecipes, loading, currentUser, recipeLikes, error } =
-    useGlobalContext();
-
-  useEffect(() => {
-    getRecipes();
-  }, [recipeLikes]);
+  const { allRecipes, loading, currentUser, error } = useGlobalContext();
 
   return (
     <MainLayout>
       <PageTitle description="Fresh & New" />
       <div className="recipe-cards">
-        {loading && <Spiner />}
+        {loading && <Spinner />}
         {allRecipes &&
           allRecipes.map((recipe) => {
             //   allRecipes.map((recipe) => {

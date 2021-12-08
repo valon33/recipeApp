@@ -3,15 +3,14 @@ import { Link } from "react-router-dom";
 
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import Spiner from "../../components/Spiner/Spiner";
+import Spinner from "../../components/Spinner/Spinner";
 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdAddCircle } from "react-icons/md";
 import { useGlobalContext } from "../../Context/context";
 
 const MyRecipes = () => {
-  const { myRecipes, getMyRecipes, deleteRecipe } =
-    useGlobalContext();
+  const { myRecipes, getMyRecipes, deleteRecipe } = useGlobalContext();
   useEffect(() => {
     getMyRecipes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,7 +36,7 @@ const MyRecipes = () => {
         <p>Delete</p>
       </div>
       <div>
-        {!myRecipes && <Spiner />}
+        {!myRecipes && <Spinner />}
         {myRecipes &&
           myRecipes.map((recipe) => {
             return (

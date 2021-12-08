@@ -23,12 +23,12 @@ const AppProvider = ({ children }) => {
 
   // *RECIPIES FUNCTIONS
   const getRecipes = async () => {
+    dispatch({ type: "LOADING" });
     try {
       const recipes = await axios.get("http://127.0.0.1:5000/api/v1/recipes");
 
       console.log(recipes.data.data.recipe);
 
-      dispatch({ type: "LOADING" });
       if (recipes) {
         dispatch({
           type: "GET_RECIPES",
@@ -218,7 +218,7 @@ const AppProvider = ({ children }) => {
           birthday,
           photo,
         });
-      } else if (!photo) {
+      } else if (password && !photo) {
         updateUser = await axios.patch(`/api/v1/users/${id}`, {
           name,
           email,
@@ -227,7 +227,7 @@ const AppProvider = ({ children }) => {
           password,
           passwordConfirm,
         });
-      } else {
+      } else if (password && passwordConfirm && photo) {
         updateUser = await axios.patch(`/api/v1/users/${id}`, {
           name,
           email,
@@ -239,12 +239,13 @@ const AppProvider = ({ children }) => {
         });
       }
 
-      console.log("updateUser", updateUser);
+      console.log("Updated data", updateUser.data.data.user);
 
       if (updateUser) {
         dispatch({
           type: "UPDATE_USER",
           payload: updateUser.data,
+          // payload: updateUser.data,
         });
       }
     } catch (error) {
@@ -252,60 +253,6 @@ const AppProvider = ({ children }) => {
       dispatch({ type: "ERROR", payload: error.response.data.message });
     }
   };
-  //   const updatUser = async (
-  //     id,
-  //     name,
-  //     email,
-  //     password,
-  //     passwordConfirm,
-  //     lastName,
-  //     birthDay,
-  //     photo
-  //   ) => {
-  //     try {
-  //       let updateUser;
-  //       console.log(!password);
-  //       if (!password && !photo) {
-  //         updateUser = await axios.patch(`/api/v1/users/${id}`, {
-  //           name,
-  //           email,
-  //           lastName,
-  //           birthDay,
-  //         });
-  //       } else if (!photo) {
-  //         updateUser = await axios.patch(`/api/v1/users/${id}`, {
-  //           name,
-  //           email,
-  //           lastName,
-  //           birthDay,
-  //           password,
-  //           passwordConfirm,
-  //         });
-  //       } else {
-  //         updateUser = await axios.patch(`/api/v1/users/${id}`, {
-  //           name,
-  //           email,
-  //           lastName,
-  //           birthDay,
-  //           password,
-  //           passwordConfirm,
-  //           photo,
-  //         });
-  //       }
-
-  //       console.log("updateUser", updateUser);
-
-  //       if (updateUser) {
-  //         dispatch({
-  //           type: "UPDATE_USER",
-  //           payload: updateUser.data,
-  //         });
-  //       }
-  //     } catch (error) {
-  //       // console.log(error);
-  //       dispatch({ type: "ERROR", payload: error.response.data.message });
-  //     }
-  //   };
 
   const logOut = async () => {
     await axios.get("/api/v1/users/logout");
@@ -343,7 +290,7 @@ const AppProvider = ({ children }) => {
       await axios.post(`/api/v1/recipes/like/${id}`).then((recipe) => {
         dispatch({
           type: "LIKE_RECIPE",
-          payload: recipe.data.data.recipe,
+          payload: recipe.data.data.recipe.likes,
         });
       });
     } catch (error) {
@@ -353,9 +300,12 @@ const AppProvider = ({ children }) => {
 
   const unlikeRecipe = async (id) => {
     try {
-      await axios
-        .post(`/api/v1/recipes/unlike/${id}`)
-        .then((recipe) => dispatch({ type: "UNLIKE_RECIPE", payload: recipe }));
+      await axios.post(`/api/v1/recipes/unlike/${id}`).then((recipe) =>
+        dispatch({
+          type: "UNLIKE_RECIPE",
+          payload: recipe.data.data.recipe.likes,
+        })
+      );
     } catch (error) {
       dispatch({ type: "ERROR", payload: error.response.data.message });
     }
@@ -370,16 +320,19 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("load", currentUser);
-    return () => {
-      window.removeEventListener("load", currentUser);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    currentUser();
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   // useEffect(() => {
-  //     getRecipes();
+  //   window.addEventListener("load", currentUser);
+  //   return () => {
+  //     window.removeEventListener("load", currentUser);
+  //   };
   // }, []);
+
+  useEffect(() => {
+    getRecipes();
+  }, [state.recipeLikes]);
 
   return (
     <AppContext.Provider

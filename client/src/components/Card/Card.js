@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   IoRestaurantSharp,
   IoStarOutline,
@@ -45,7 +45,7 @@ const Card = ({
       <div className="card-body">
         <h5 className="card-title">{recipeTitle}</h5>
         <p className="card-text">
-          {shortDescription && shortDescription.slice(0,200)}
+          {shortDescription && shortDescription.slice(0, 200)}
         </p>
       </div>
       <div className="card--footer">

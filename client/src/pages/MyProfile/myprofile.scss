@@ -1,18 +1,17 @@
 .myprofile {
+  display: flex;
+  align-items: center;
+
+  &__photo {
+    margin: 0 auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
 
-    &__photo {
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        img {
-            width: 200px;
-            border-radius: 100px;
-        }
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 200px;
     }
+  }
 }
-
-

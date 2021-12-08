@@ -5,7 +5,7 @@ import Input from "../../components/Form/Input";
 import { useGlobalContext } from "../../Context/context";
 
 const MyProfile = () => {
-  const { currentUser, updatUser, uploadPhoto } = useGlobalContext();
+  const { currentUser, updatUser, uploadPhoto, loading } = useGlobalContext();
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImg, setPreviewImg] = useState("");
   const [name, setName] = useState("");
@@ -15,45 +15,16 @@ const MyProfile = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [photo, setPhoto] = useState("");
-  //   const [inputValue, setInputValue] = useState({
-  //     name: "",
-  //     lastName: "",
-  //     email: "",
-  //     birthday: "",
-  //     password: "",
-  //     passwordConfirm: "",
-  //   });
+
   console.log("wtf", currentUser);
 
-  //   const { name, lastName, email, birthday, photo, password, passwordConfirm } =
-  //     inputValue;
-
-  //   useEffect(() => {
-  //     setInputValue((prev) => ({
-  //       ...prev,
-  //       name: currentUser.name,
-  //       lastName: currentUser.lastName,
-  //       email: currentUser.email,
-  //       birthday: currentUser.birthday,
-  //       photo: currentUser.photo || "",
-  //       // "https://cdn1.iconfinder.com/data/icons/avatar-97/32/avatar-02-512.png",
-  //     }));
-  //   }, []);
   useEffect(() => {
     setName(currentUser.name);
     setLastName(currentUser.lastName);
     setEmail(currentUser.email);
     setBirthDay(currentUser.birthday);
     setPhoto(currentUser.photo || "");
-  }, []);
-
-  //   const handleChange = (e) => {
-  //     const { name, value } = e.target;
-  //     setInputValue((prev) => ({
-  //       ...prev,
-  //       [name]: value,
-  //     }));
-  //   };
+  }, [currentUser]);
 
   useEffect(() => {
     if (selectedFile) {
