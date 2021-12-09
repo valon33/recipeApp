@@ -44,8 +44,6 @@ const SortedRecipe = () => {
             );
           })}
       </div>
-      <h1>Sorted Recipe by {category}</h1>
-      <button onClick={() => navigate("/myrecipes")}>go back</button>
     </MainLayout>
   );
 };
