@@ -1,75 +1,94 @@
 .recipe__post {
-  display: flex;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-
-  &--upload {
-    width: 20%;
-    padding: 20px;
-    margin-top: 30px;
-
-    @media (max-width: 768px) {
-      width: 90%;
-      margin: 0 auto;
-    }
-  }
-
-  &--title {
-    width: 40%;
-    padding: 20px;
-    // margin-left: 20px;
-    @media (max-width: 768px) {
-      width: 90%;
-      margin: 0 auto;
-    }
-  }
-
-  &--recipe {
-    padding: 20px;
-    width: 40%;
-
-    @media (max-width: 768px) {
-      width: 90%;
-      margin: 0 auto;
-    }
-  }
-
-  &__photo {
     display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    & img {
-      height: 150px;
-      width: 250px;
-      border-radius: 10px;
-      background-position: center;
-      background-size: cover;
-      object-fit: contain;
-    }
-  }
+    justify-content: space-between;
+    padding: 30px 0;
+    position: relative;
 
-  .upload--photo {
-    color: var(--midgrey);
-  }
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+
+    &--upload {
+        width: 20%;
+        padding: 20px;
+        margin-top: 30px;
+
+        @media (max-width: 768px) {
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+
+    &--title {
+        width: 40%;
+        padding: 20px;
+
+        // margin-left: 20px;
+        @media (max-width: 768px) {
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+
+    &--recipe {
+        padding: 20px;
+        width: 40%;
+
+        @media (max-width: 768px) {
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+
+    &__photo {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        & img {
+            height: 150px;
+            width: 250px;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            background-position: center;
+            background-size: cover;
+            object-fit: contain;
+        }
+    }
+
+    .upload--photo {
+        color: var(--midgrey);
+        @media (max-width: 1068px) {
+            font-size: 12px;
+            padding: 6px 8px;
+        }
+    }
+
+    &-button {
+        @media (max-width: 768px) {
+            position: absolute;
+            bottom: 0;
+            left: 40px;
+            margin-top: 20px;
+        }
+    }
 }
 
 .form-control,
 .form-select,
 .form-select:focus,
 .form-control:focus {
-  background: #f0efea 0% 0% no-repeat padding-box;
-  box-shadow: none;
-  border-color: #f0efea;
+    background: #f0efea 0% 0% no-repeat padding-box;
+    box-shadow: none;
+    border-color: #f0efea;
 }
 
 .form-control:focus:not(textarea) {
-  outline: none;
-  border-bottom: 3px solid green;
+    outline: none;
+    border-bottom: 3px solid green;
 }
 
 .form-control:invalid:not(textarea) {
-  border-bottom: 3px solid red;
+    border-bottom: 3px solid red;
 }

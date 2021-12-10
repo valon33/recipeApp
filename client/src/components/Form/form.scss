@@ -14,6 +14,16 @@
         font-weight: 900;
         display: inline-block;
         margin-bottom: 10px;
+
+        @media (max-width: 800px) {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1068px) {
+            font-size: 14px;
+            padding: 6px 8px;
+        }
     }
 
     &-control {
@@ -56,6 +66,9 @@ input[type="date"] {
     font-family: var(--font-family-roboto);
     font-size: 13px;
     color: var(--midgrey);
+}
+input[type="textarea"] {
+    margin-bottom: 25px;
 }
 
 [type="file"] {

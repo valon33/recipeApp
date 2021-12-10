@@ -1,4 +1,11 @@
 .header {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        // flex-wrap: wrap;
+        flex-direction: column;
+        padding: 0 20px;
+    }
 }

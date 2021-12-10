@@ -1,21 +1,21 @@
 .myprofile {
-  display: flex;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-
-  &__photo {
-    margin: 0 auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
 
-    img {
-      width: 200px;
-      height: 200px;
-      border-radius: 200px;
+    @media (max-width: 768px) {
+        flex-direction: column;
     }
-  }
+
+    &__photo {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            width: 200px;
+            height: 200px;
+            border-radius: 200px;
+        }
+    }
 }

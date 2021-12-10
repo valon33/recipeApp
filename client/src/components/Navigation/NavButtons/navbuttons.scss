@@ -1,14 +1,21 @@
 .header__nav {
-  display: flex;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+        display: none;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .header-btn a {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .or {
-  color: var(--orange);
-  margin: 0 10px;
-  text-align: center;
+    color: var(--orange);
+    margin: 0 10px;
+    text-align: center;
 }

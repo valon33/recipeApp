@@ -1,66 +1,53 @@
 .res-nav-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  // z-index: 1000;
-  padding: 5px;
-  // display: none;
-  cursor: pointer;
-  margin-right: 1rem;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    // z-index: 1000;
+    padding: 5px;
+    display: none;
+    cursor: pointer;
+    margin-right: 1rem;
 }
 
 .bar1,
 .bar2,
 .bar3 {
-  width: 35px;
-  height: 5px;
-  background-color: #333;
-  margin: 6px 0;
-  transition: 0.4s;
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
 }
 
 .change-bar1,
 .change-bar2,
 .change-bar3 {
-  width: 35px;
-  height: 5px;
-  background-color: #333;
-  margin: 6px 0;
-  transition: 0.4s;
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
 }
 
 .change-bar1 {
-  transform: rotate(-45deg) translate(-9px, 6px);
-  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
 }
 
 .change-bar2 {
-  opacity: 0;
+    opacity: 0;
 }
 
 .change-bar3 {
-  transform: rotate(45deg) translate(-8px, -8px);
-  -webkit-transform: rotate(45deg) translate(-8px, -8px);
-}
-/* .change .bar1 {
-    transform: rotate(-45deg) translate(-9px, 6px);
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-  }
-
-  .change .bar2 {
-    opacity: 0;
-  }
-
-  .change .bar3 {
     transform: rotate(45deg) translate(-8px, -8px);
     -webkit-transform: rotate(45deg) translate(-8px, -8px);
-  } */
+}
 
 /* Small devices (landscape phones, 576px and up) */
 @media only screen and (max-width: 767px) {
-  .res-nav-button {
-    display: block;
-  }
+    .res-nav-button {
+        display: block;
+    }
 }
 
 /* X-Small devices (portrait phones, less than 576px)
