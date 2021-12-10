@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       {isModalOpen && <Modal />}
-      {error.length > 0 && <Alert />}
+      {error?.length > 0 && <Alert />}
       <RecipeRoutes />
     </div>
   );
