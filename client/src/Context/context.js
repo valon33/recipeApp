@@ -25,7 +25,7 @@ const AppProvider = ({ children }) => {
   const getRecipes = async () => {
     dispatch({ type: "LOADING" });
     try {
-      const recipes = await axios.get("http://127.0.0.1:5000/api/v1/recipes");
+      const recipes = await axios.get("/api/v1/recipes");
 
       console.log(recipes.data.data.recipe);
 
