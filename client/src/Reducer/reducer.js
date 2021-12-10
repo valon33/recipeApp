@@ -94,6 +94,10 @@ const reducer = (state, action) => {
     return { ...state, error: action.payload };
   }
 
+  if (action.type === "CLEAR_ERROR") {
+    return { ...state, error: [] };
+  }
+
   throw new Error("no matching action type");
 };
 

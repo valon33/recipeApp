@@ -318,6 +318,9 @@ const AppProvider = ({ children }) => {
   const closeModal = () => {
     dispatch({ type: "CLOSE_MODAL" });
   };
+  const clearError = () => {
+    dispatch({ type: "CLEAR_ERROR" });
+  };
 
   useEffect(() => {
     currentUser();
@@ -353,6 +356,7 @@ const AppProvider = ({ children }) => {
         uploadPhoto,
         likeRecipe,
         unlikeRecipe,
+        clearError,
       }}
     >
       {children}
