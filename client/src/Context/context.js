@@ -335,7 +335,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     getRecipes();
-  }, [state.recipeLikes]);
+  }, [state.recipeLikes,state.myRecipes]);
 
   return (
     <AppContext.Provider
