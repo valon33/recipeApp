@@ -1,34 +1,39 @@
 .logo {
-  font-family: "Roboto Slab", serif;
-  font-weight: 900;
-  font-size: 70px;
-  color: var(--darkgrey);
-
-
-  &__box {
-    position: relative;
-  }
-  &__link:link,
-  &__link:visited {
-    text-decoration: none;
-    color: var(--midgrey);
-  }
-
-  &__span {
     font-family: "Roboto Slab", serif;
     font-weight: 900;
-    font-size: 18px;
-    color: var(--orange);
-    position: absolute;
-    top: 75%;
-    left: 18%;
+    font-size: 70px;
+    color: var(--darkgrey);
 
-    @media (max-width: 768px) {
-      left: 5%;
+    &__box {
+        position: relative;
+
+        @media (max-width: 768px) {
+            display: flex;
+            align-self: start;
+            margin-left: 10px;
+        }
     }
-  }
+    &__link:link,
+    &__link:visited {
+        text-decoration: none;
+        color: var(--midgrey);
+    }
 
-  &__white {
-    color: var(--white) !important;
-  }
+    &__span {
+        font-family: "Roboto Slab", serif;
+        font-weight: 900;
+        font-size: 18px;
+        color: var(--orange);
+        position: absolute;
+        top: 75%;
+        left: 18%;
+
+        @media (max-width: 768px) {
+            left: 5%;
+        }
+    }
+
+    &__white {
+        color: var(--white) !important;
+    }
 }

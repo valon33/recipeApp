@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import MainLayout from "../../layouts/MainLayout";
-import Card from "../../components/Card/Card";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Spinner from "../../components/Spinner/Spinner";
+import CardList from "../../components/CardList/CardList";
 import { useGlobalContext } from "../../Context/context";
 
 const Home = () => {
@@ -14,8 +14,8 @@ const Home = () => {
 
     useEffect(() => {
         const m = _.sortBy(allRecipes, ["likes"]).reverse();
-        setMostLikedRecipes(m);
         const n = _.sortBy(allRecipes, ["createdAt"]).reverse().slice(0, 3);
+        setMostLikedRecipes(m);
         setNewestRecipes(n);
     }, [allRecipes, recipeLikes]);
 
@@ -24,50 +24,24 @@ const Home = () => {
             <PageTitle description="Fresh & New" />
             <div className="recipe-cards">
                 {loading && <Spinner />}
-                {newestRecipes &&
-                    newestRecipes.map((recipe) => {
-                        const liked =
-                            recipe.likes.filter(
-                                (rec) => rec.user === currentUser._id
-                            ).length > 0;
-                        return (
-                            <Card
-                                category={recipe.category}
-                                recipeTitle={recipe.recipeTitle}
-                                numberPeople={recipe.numberPeople}
-                                prepTime={recipe.prepTime}
-                                shortDescription={recipe.shortDescription}
-                                likes={recipe.likes}
-                                photo={recipe.photo}
-                                id={recipe._id}
-                                liked={liked}
-                            />
-                        );
-                    })}
+                {newestRecipes && (
+                    <CardList
+                        recipes={newestRecipes}
+                        currentUser={currentUser}
+                    />
+                )}
             </div>
+
             <PageTitle description="Most Popular Recipes" />
             <div className="recipe-cards">
                 {loading && <Spinner />}
-                {mostLikedRecipes &&
-                    mostLikedRecipes.map((recipe) => {
-                        const liked =
-                            recipe.likes.filter(
-                                (rec) => rec.user === currentUser._id
-                            ).length > 0;
-                        return (
-                            <Card
-                                category={recipe.category}
-                                recipeTitle={recipe.recipeTitle}
-                                numberPeople={recipe.numberPeople}
-                                prepTime={recipe.prepTime}
-                                shortDescription={recipe.shortDescription}
-                                likes={recipe.likes}
-                                photo={recipe.photo}
-                                id={recipe._id}
-                                liked={liked}
-                            />
-                        );
-                    })}
+
+                {mostLikedRecipes && (
+                    <CardList
+                        recipes={mostLikedRecipes}
+                        currentUser={currentUser}
+                    />
+                )}
             </div>
         </MainLayout>
     );
