@@ -70,7 +70,10 @@ const CreateRecipe = () => {
             numberPeople
         ) {
             if (selectedFile) {
-                const photo = selectedFile.name;
+                const photo = JSON.stringify(selectedFile.name);
+                // const photo = selectedFile.name;
+                console.log("photo", photo);
+                console.log("selectedFile", selectedFile);
                 uploadPhoto(selectedFile);
                 createRecipe(
                     recipe,

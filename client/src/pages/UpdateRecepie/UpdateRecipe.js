@@ -129,8 +129,9 @@ const UpdateRecipe = () => {
                         <img
                             src={
                                 photo && !previewImg
-                                    ? `/images/${photo}`
+                                    ? `/api/v1/upload/${photo}`
                                     : previewImg
+                                // ? `/images/${photo}`
                             }
                             // src={photo && !previewImg ? `./images/${photo}` : previewImg}
                             alt="Avatar"

@@ -10,6 +10,7 @@ exports.uploadPhoto = catchAsync(async (req, res) => {
 
     console.log(req.files);
     console.log(__dirname);
+    console.log(__filename);
     const photo = req.files.photo;
     // const uploadPath = __dirname + "./client/src/assets/images/" + photo.name;
     const uploadPath = path.join(
@@ -18,6 +19,8 @@ exports.uploadPhoto = catchAsync(async (req, res) => {
         // "../client/src/assets/images/",
         photo.name
     );
+
+    console.log("uploadPath", uploadPath);
 
     photo.mv(uploadPath, function (err) {
         if (err) return res.status(500).send(err);
