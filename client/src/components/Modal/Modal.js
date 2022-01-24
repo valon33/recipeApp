@@ -41,7 +41,7 @@ const Modal = () => {
                             // src="https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Spinach-Tomato-Pasta-bowl-500x375.jpg"
                             src={
                                 modalRecipe.photo
-                                    ? `./images/${modalRecipe.photo}`
+                                    ? `/api/v1/upload/${modalRecipe.photo}`
                                     : "https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Spinach-Tomato-Pasta-bowl-500x375.jpg"
                             }
                             className="modal-body-img"
