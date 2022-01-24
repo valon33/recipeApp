@@ -74,7 +74,7 @@ const MyProfile = () => {
           <img
             src={
               photo && !previewImg
-                ? `/images/${photo}`
+                ? `/api/v1/upload/${photo}`
                 : previewImg ||
                   (!photo &&
                     !previewImg &&
