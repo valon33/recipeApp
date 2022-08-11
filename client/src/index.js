@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AppProvider } from "./Context/context";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 const queryClient = new QueryClient();
 
 ReactDOM.render(
@@ -13,6 +14,7 @@ ReactDOM.render(
         <QueryClientProvider client={queryClient}>
             <Router>
                 <App />
+                <ReactQueryDevtools initialIsOpen={false} />
             </Router>
         </QueryClientProvider>
     </AppProvider>,

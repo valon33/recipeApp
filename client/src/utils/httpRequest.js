@@ -1,7 +1,8 @@
 import axios from "axios";
 
 class Requests {
-    getRecipes = async () => await axios.get(`/api/v1/recipes`);
+    getRecipes = async () =>
+        await axios.get(`http://127.0.0.1:5000/api/v1/recipes`);
 
     createRecipe = async ({
         recipe,
@@ -59,17 +60,46 @@ class Requests {
 
     // ?Sign UP
 
+    signUp = async ({
+        name,
+        lastName,
+        email,
+        password,
+        passwordConfirm,
+        birthDay,
+    }) => {
+        const date = new Date(birthDay);
+        return await axios.post("/api/v1/users/signup", {
+            name,
+            lastName,
+            email,
+            password,
+            passwordConfirm,
+            date,
+        });
+    };
+
     // ?Update User
 
     // ? log Out
+    logOut = async () => await axios.get("/api/v1/users/logout");
 
     // ? Current User
+    currentUser = async () => await axios.get("/api/v1/users/currentuser");
 
     // ? Upload Photo
+    uploadPhoto = async (selectedPhoto) => {
+        const data = new FormData();
+        data.append("photo", selectedPhoto);
+        return await axios.post("/api/v1/upload", data);
+    };
 
     // ? Like Recipe
+    likeRecipe = async (id) => await axios.post(`/api/v1/recipes/like/${id}`);
 
     // ? Unlike Recipe
+    unlikeRecipe = async (id) =>
+        await axios.post(`/api/v1/recipes/unlike/${id}`);
 }
 
 export default new Requests();
