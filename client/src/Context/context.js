@@ -21,6 +21,7 @@ const initialState = {
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const baseUrl = "https://recipe-app-backend.onrender.com";
+    // const baseUrl = "https://recipe-app-backend-4xd6.onrender.com/";
 
     // *RECIPIES FUNCTIONS
     const getRecipes = async () => {
