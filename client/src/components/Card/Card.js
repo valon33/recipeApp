@@ -19,6 +19,7 @@ const Card = ({
     id,
 }) => {
     const { openModal, likeRecipe, unlikeRecipe } = useGlobalContext();
+    const baseUrl = "https://recipe-app-backend-4xd6.onrender.com";
 
     const toggleLikeRecepies = () => {
         if (liked === false) {
@@ -35,7 +36,7 @@ const Card = ({
                 <img
                     src={
                         photo
-                            ? `/api/v1/upload/${photo}`
+                            ? `${baseUrl}/api/v1/upload/${photo}`
                             : "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2020/08/20/0/FNM_100120-Ultimate-Beef-Stew_s4x3.jpg.rend.hgtvcom.406.305.suffix/1597931275143.jpeg"
                     }
                     // src={
