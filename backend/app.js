@@ -20,7 +20,7 @@ app.enable("trust proxy");
 
 app.use(morgan("dev"));
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 
 app.use(cookieParser());
 
