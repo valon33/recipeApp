@@ -9,10 +9,10 @@ const signToken = (id) => {
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
-    httpOnly: true,
+    // httpOnly: true,
     maxAge: 60 * 60 * 1000, // 1 hour
   };
-  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+  // if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
   // res.cookie("jwt", token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
   res.cookie("jwt", token, cookieOptions);

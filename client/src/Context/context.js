@@ -284,7 +284,7 @@ const AppProvider = ({ children }) => {
 
     const currentUser = async () => {
         try {
-            const user = await axios.get(`${baseUrl}/api/v1/users/currentuser`);
+            const user = await axios.get(`${baseUrl}/api/v1/users/currentuser`); 
             if (user)
                 dispatch({ type: "CURRENT_USER", payload: user.data.user });
         } catch (error) {
