@@ -1,6 +1,9 @@
 import React, { useContext, useReducer, useEffect } from "react";
 import reducer from "../Reducer/reducer";
 import axios from "axios";
+import API from "../http";
+import useLocalStorage from "../hooks/useLocalStorage";
+// axios.defaults.withCredentials = true;
 
 const AppContext = React.createContext();
 
@@ -20,6 +23,7 @@ const initialState = {
 
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [token, setToken] = useLocalStorage("token", null);
     // const baseUrl = "https://recipe-app-backend.onrender.com";
     const baseUrl = "https://recipe-app-backend-4xd6.onrender.com";
 
@@ -27,7 +31,8 @@ const AppProvider = ({ children }) => {
     const getRecipes = async () => {
         dispatch({ type: "LOADING" });
         try {
-            const recipes = await axios.get(`${baseUrl}/api/v1/recipes`);
+            // const recipes = await axios.get(`${baseUrl}/api/v1/recipes`);
+            const recipes = await API.get(`/api/v1/recipes`);
 
             console.log(recipes.data.data.recipe);
 
@@ -170,7 +175,10 @@ const AppProvider = ({ children }) => {
                 email,
                 password,
             });
-            console.log("From the Context current User", user.data.data.user);
+            console.log("From the Context current User token", user.data);
+            // console.log("From the Context current User", user.data.data.user);
+            // localStorage.setItem("token", user.data.token);
+            setToken(user.data.data.token);
             if (user) dispatch({ type: "LOGIN", payload: user.data.data.user });
         } catch (error) {
             dispatch({ type: "ERROR", payload: error.response.data.message });
@@ -284,7 +292,7 @@ const AppProvider = ({ children }) => {
 
     const currentUser = async () => {
         try {
-            const user = await axios.get(`${baseUrl}/api/v1/users/currentuser`); 
+            const user = await axios.get(`${baseUrl}/api/v1/users/currentuser`);
             if (user)
                 dispatch({ type: "CURRENT_USER", payload: user.data.user });
         } catch (error) {
