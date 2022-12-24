@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:5000",
-    // baseURL: "https://recipe-app-backend-4xd6.onrender.com",
+    // baseURL: "http://localhost:5000",
+    baseURL: "https://recipe-app-backend-4xd6.onrender.com",
 });
 
 API.interceptors.request.use((req) => {

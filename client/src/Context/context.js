@@ -1,9 +1,7 @@
 import React, { useContext, useReducer, useEffect } from "react";
 import reducer from "../Reducer/reducer";
-import axios from "axios";
 import API from "../http";
 import useLocalStorage from "../hooks/useLocalStorage";
-// axios.defaults.withCredentials = true;
 
 const AppContext = React.createContext();
 
@@ -23,15 +21,12 @@ const initialState = {
 
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const [token, setToken] = useLocalStorage("token", null);
-    // const baseUrl = "https://recipe-app-backend.onrender.com";
-    const baseUrl = "https://recipe-app-backend-4xd6.onrender.com";
+    const [token, setToken, removeToken] = useLocalStorage("token", null);
 
     // *RECIPIES FUNCTIONS
     const getRecipes = async () => {
         dispatch({ type: "LOADING" });
         try {
-            // const recipes = await axios.get(`${baseUrl}/api/v1/recipes`);
             const recipes = await API.get(`/api/v1/recipes`);
 
             console.log(recipes.data.data.recipe);
@@ -43,7 +38,6 @@ const AppProvider = ({ children }) => {
                 });
             }
         } catch (error) {
-            // dispatch({ type: "ERROR", payload: error.response.data.message });
             dispatch({ type: "ERROR", payload: error.response });
         }
     };
@@ -59,7 +53,7 @@ const AppProvider = ({ children }) => {
         photo
     ) => {
         try {
-            const newRecipe = await axios.post(`${baseUrl}/api/v1/recipes`, {
+            const newRecipe = await API.post(`/api/v1/recipes`, {
                 recipe,
                 recipeTitle,
                 category,
@@ -69,7 +63,6 @@ const AppProvider = ({ children }) => {
                 author,
                 photo,
             });
-            console.log("new Recipe=>", newRecipe.data.data.recipe);
 
             if (newRecipe)
                 dispatch({
@@ -83,9 +76,7 @@ const AppProvider = ({ children }) => {
 
     const getMyRecipes = async () => {
         try {
-            const recipes = await axios.get(
-                `${baseUrl}/api/v1/recipes/myrecipes`
-            );
+            const recipes = await API.get(`/api/v1/recipes/myrecipes`);
             console.log("My Recipies=>>", recipes.data);
             if (recipes)
                 dispatch({
@@ -99,19 +90,12 @@ const AppProvider = ({ children }) => {
 
     const getRecipe = async (id) => {
         try {
-            // const recipe = await axios.get(`/api/v1/recipes/${id}`).then((recipe) => {
-            await axios
-                .get(`${baseUrl}/api/v1/recipes/${id}`)
-                .then((recipe) => {
-                    dispatch({
-                        type: "GET_RECIPE",
-                        payload: recipe.data.data.recipe,
-                    });
+            await API.get(`/api/v1/recipes/${id}`).then((recipe) => {
+                dispatch({
+                    type: "GET_RECIPE",
+                    payload: recipe.data.data.recipe,
                 });
-            // console.log("haj ne k", recipe);
-            // if (recipe) {
-            //   dispatch({ type: "GET_RECIPE", payload: recipe.data.data.recipe });
-            // }
+            });
         } catch (error) {
             dispatch({ type: "ERROR", payload: error.response.data.message });
         }
@@ -119,9 +103,7 @@ const AppProvider = ({ children }) => {
 
     const deleteRecipe = async (id) => {
         try {
-            const deletedRecipe = await axios.delete(
-                `${baseUrl}/api/v1/recipes/${id}`
-            );
+            const deletedRecipe = await API.delete(`/api/v1/recipes/${id}`);
 
             if (deletedRecipe) dispatch({ type: "DELETE_RECIPE", payload: id });
         } catch (error) {
@@ -140,20 +122,15 @@ const AppProvider = ({ children }) => {
         photo
     ) => {
         try {
-            const updatedRecipe = await axios.patch(
-                `${baseUrl}/api/v1/recipes/${id}`,
-                {
-                    recipe,
-                    recipeTitle,
-                    category,
-                    prepTime,
-                    shortDescription,
-                    numberPeople,
-                    photo,
-                }
-            );
-
-            console.log("A Punon be", updatedRecipe.data);
+            const updatedRecipe = await API.patch(`/api/v1/recipes/${id}`, {
+                recipe,
+                recipeTitle,
+                category,
+                prepTime,
+                shortDescription,
+                numberPeople,
+                photo,
+            });
 
             if (updatedRecipe) {
                 dispatch({
@@ -162,7 +139,6 @@ const AppProvider = ({ children }) => {
                 });
             }
         } catch (error) {
-            // dispatch({ type: "ERROR", payload: error.response.data.message });
             dispatch({ type: "ERROR", payload: error.response });
         }
     };
@@ -171,13 +147,11 @@ const AppProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const user = await axios.post(`${baseUrl}/api/v1/users/login`, {
+            const user = await API.post(`/api/v1/users/login`, {
                 email,
                 password,
             });
-            console.log("From the Context current User token", user.data);
-            // console.log("From the Context current User", user.data.data.user);
-            // localStorage.setItem("token", user.data.token);
+            console.log("From the Context current User token", user.data.data);
             setToken(user.data.data.token);
             if (user) dispatch({ type: "LOGIN", payload: user.data.data.user });
         } catch (error) {
@@ -195,7 +169,7 @@ const AppProvider = ({ children }) => {
     }) => {
         const date = new Date(birthDay);
         try {
-            const newUser = await axios.post(`${baseUrl}/api/v1/users/signup`, {
+            const newUser = await API.post(`/api/v1/users/signup`, {
                 name,
                 lastName,
                 email,
@@ -210,7 +184,7 @@ const AppProvider = ({ children }) => {
         }
     };
 
-    const updatUser = async (
+    const updateUser = async (
         id,
         name,
         email,
@@ -223,76 +197,61 @@ const AppProvider = ({ children }) => {
         try {
             let updateUser;
             if (!password && !passwordConfirm && !photo) {
-                updateUser = await axios.patch(
-                    `${baseUrl}/api/v1/users/${id}`,
-                    {
-                        name,
-                        email,
-                        lastName,
-                        birthday,
-                    }
-                );
+                updateUser = await API.patch(`/api/v1/users/${id}`, {
+                    name,
+                    email,
+                    lastName,
+                    birthday,
+                });
             } else if (!password && !passwordConfirm && photo) {
-                updateUser = await axios.patch(
-                    `${baseUrl}/api/v1/users/${id}`,
-                    {
-                        name,
-                        email,
-                        lastName,
-                        birthday,
-                        photo,
-                    }
-                );
+                updateUser = await API.patch(`/api/v1/users/${id}`, {
+                    name,
+                    email,
+                    lastName,
+                    birthday,
+                    photo,
+                });
             } else if (password && !photo) {
-                updateUser = await axios.patch(
-                    `${baseUrl}/api/v1/users/${id}`,
-                    {
-                        name,
-                        email,
-                        lastName,
-                        birthday,
-                        password,
-                        passwordConfirm,
-                    }
-                );
+                updateUser = await API.patch(`/api/v1/users/${id}`, {
+                    name,
+                    email,
+                    lastName,
+                    birthday,
+                    password,
+                    passwordConfirm,
+                });
             } else if (password && passwordConfirm && photo) {
-                updateUser = await axios.patch(
-                    `${baseUrl}/api/v1/users/${id}`,
-                    {
-                        name,
-                        email,
-                        lastName,
-                        birthday,
-                        password,
-                        passwordConfirm,
-                        photo,
-                    }
-                );
+                updateUser = await API.patch(`/api/v1/users/${id}`, {
+                    name,
+                    email,
+                    lastName,
+                    birthday,
+                    password,
+                    passwordConfirm,
+                    photo,
+                });
             }
-
-            console.log("Updated data", updateUser.data.data.user);
 
             if (updateUser) {
                 dispatch({
                     type: "UPDATE_USER",
                     payload: updateUser.data,
-                    // payload: updateUser.data,
                 });
             }
         } catch (error) {
-            // console.log(error);
             dispatch({ type: "ERROR", payload: error.response.data.message });
         }
     };
 
     const logOut = async () => {
-        await axios.get(`${baseUrl}/api/v1/users/logout`);
+        await API.get(`/api/v1/users/logout`);
+        removeToken("token");
         dispatch({ type: "LOGOUT" });
     };
 
     const currentUser = async () => {
         try {
-            const user = await axios.get(`${baseUrl}/api/v1/users/currentuser`);
+            const user = await API.get(`/api/v1/users/currentuser`);
             if (user)
                 dispatch({ type: "CURRENT_USER", payload: user.data.user });
         } catch (error) {
@@ -307,7 +266,7 @@ const AppProvider = ({ children }) => {
             const data = new FormData();
             data.append("photo", selectedPhoto);
 
-            const photo = await axios.post(`${baseUrl}/api/v1/upload`, data);
+            const photo = await API.post(`/api/v1/upload`, data);
 
             if (photo) {
                 dispatch({ type: "UPLOAD_PHOTO" });
@@ -319,14 +278,12 @@ const AppProvider = ({ children }) => {
 
     const likeRecipe = async (id) => {
         try {
-            await axios
-                .post(`${baseUrl}/api/v1/recipes/like/${id}`)
-                .then((recipe) => {
-                    dispatch({
-                        type: "LIKE_RECIPE",
-                        payload: recipe.data.data.recipe.likes,
-                    });
+            await API.post(`/api/v1/recipes/like/${id}`).then((recipe) => {
+                dispatch({
+                    type: "LIKE_RECIPE",
+                    payload: recipe.data.data.recipe.likes,
                 });
+            });
         } catch (error) {
             dispatch({ type: "ERROR", payload: error.response.data.message });
         }
@@ -334,14 +291,12 @@ const AppProvider = ({ children }) => {
 
     const unlikeRecipe = async (id) => {
         try {
-            await axios
-                .post(`${baseUrl}/api/v1/recipes/unlike/${id}`)
-                .then((recipe) =>
-                    dispatch({
-                        type: "UNLIKE_RECIPE",
-                        payload: recipe.data.data.recipe.likes,
-                    })
-                );
+            await API.post(`/api/v1/recipes/unlike/${id}`).then((recipe) =>
+                dispatch({
+                    type: "UNLIKE_RECIPE",
+                    payload: recipe.data.data.recipe.likes,
+                })
+            );
         } catch (error) {
             dispatch({ type: "ERROR", payload: error.response.data.message });
         }
@@ -360,14 +315,7 @@ const AppProvider = ({ children }) => {
 
     useEffect(() => {
         currentUser();
-        //   // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    // useEffect(() => {
-    //   window.addEventListener("load", currentUser);
-    //   return () => {
-    //     window.removeEventListener("load", currentUser);
-    //   };
-    // }, []);
 
     useEffect(() => {
         getRecipes();
@@ -383,7 +331,7 @@ const AppProvider = ({ children }) => {
                 signUp,
                 login,
                 logOut,
-                updatUser,
+                updateUser,
                 createRecipe,
                 getMyRecipes,
                 getRecipe,
