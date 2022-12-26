@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-    name: "recipe",
+    name: "user",
     initialState,
     reducers: {
         increment: (state) => {
