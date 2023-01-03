@@ -15,14 +15,14 @@ export const utilSlice = createSlice({
     name: "util",
     initialState,
     reducers: {
-        increment: (state) => {
-            state.value += 1;
+        openModal: (state) => {
+            state.isModalOpen = true;
         },
-        decrement: (state) => {
-            state.value -= 1;
+        closeModal: (state) => {
+            state.isModalOpen = false;
         },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload;
+        clearError: (state, action) => {
+            state.error = [];
         },
     },
 });
