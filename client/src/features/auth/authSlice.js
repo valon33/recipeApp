@@ -1,50 +1,69 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const login = createAsyncThunk("auth/login", async (email, password) => {
+  return await axios
+    .post(`/api/v1/users/login`, {
+      email,
+      password,
+    })
+    .then((res) => res.data);
+});
+
+const logOut = createAsyncThunk("auth/logout", async () => {
+  await axios.get(`/api/v1/users/logout`);
+});
 
 const initialState = {
-    isModalOpen: false,
-    loading: false,
-    isLogedIn: false,
-    modalId: "",
-    modalRecipe: {},
-    error: [],
-    allRecipes: [],
-    myRecipes: [],
+  loading: false,
+  isLogedIn: false,
+  error: [],
+  user: null,
 };
 
 export const userSlice = createSlice({
-    name: "user",
-    initialState,
-    reducers: {
-        increment: (state) => {
-            state.value += 1;
-        },
-        decrement: (state) => {
-            state.value -= 1;
-        },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload;
-        },
-    },
+  name: "auth",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(login.pending, (state) => {
+      state.loading = true;
+      state.isLogedIn = false;
+    });
+    builder.addCase(login.fulfilled, (state, action) => {
+      state.loading = false;
+      state.isLogedIn = true;
+      state.user = action.payload;
+    });
+    builder.addCase(login.rejected, (state, action) => {
+      state.loading = false;
+      state.isLogedIn = false;
+      state.user = null;
+      state.error = action.error.message;
+    });
+
+    builder.addCase(logOut.pending, (state) => {
+      state.loading = true;
+      state.isLogedIn = true;
+    });
+    builder.addCase(logOut.fulfilled, (state) => {
+      state.loading = false;
+      state.user = null;
+      state.isLogedIn = false;
+    });
+    builder.addCase(logOut.rejected, (state, action) => {
+      state.loading = false;
+      state.user = null;
+      state.isLogedIn = false;
+      state.error = action.error.message;
+    });
+  },
 });
 
 // Action creators are generated for each case reducer function
 export const { increment, decrement, incrementByAmount } = userSlice.actions;
 
 export default userSlice.reducer;
-
-// const login = async (email, password) => {
-//     try {
-//         const user = await API.post(`/api/v1/users/login`, {
-//             email,
-//             password,
-//         });
-//         console.log("From the Context current User token", user.data.data);
-//         setToken(user.data.data.token);
-//         if (user) dispatch({ type: "LOGIN", payload: user.data.data.user });
-//     } catch (error) {
-//         dispatch({ type: "ERROR", payload: error.response.data.message });
-//     }
-// };
 
 // const signUp = async ({
 //     name,
@@ -69,14 +88,6 @@ export default userSlice.reducer;
 //     } catch (error) {
 //         dispatch({ type: "ERROR", payload: error.response.data.message });
 //     }
-// };
-
-
-
-// const logOut = async () => {
-//     await API.get(`/api/v1/users/logout`);
-//     removeToken("token");
-//     dispatch({ type: "LOGOUT" });
 // };
 
 // const currentUser = async () => {
