@@ -1,14 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const likeRecipe = createAsyncThunk("util/likerecipe", async (id) => {
+    await axios.post(`/api/v1/recipes/like/${id}`);
+});
+
+const unLikeRecipe = createAsyncThunk("util/unlikerecipe", async (id) => {
+    await axios.post(`/api/v1/recipes/unlike/${id}`);
+});
 
 const initialState = {
     isModalOpen: false,
     loading: false,
-    isLogedIn: false,
     modalId: "",
     modalRecipe: {},
     error: [],
-    allRecipes: [],
-    myRecipes: [],
 };
 
 export const utilSlice = createSlice({
@@ -24,6 +30,33 @@ export const utilSlice = createSlice({
         clearError: (state, action) => {
             state.error = [];
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(likeRecipe.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(likeRecipe.fulfilled, (state, action) => {
+            state.loading = false;
+        });
+
+        builder.addCase(likeRecipe.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
+        });
+
+        builder.addCase(unLikeRecipe.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(unLikeRecipe.fulfilled, (state, action) => {
+            state.loading = false;
+        });
+
+        builder.addCase(unLikeRecipe.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
+        });
     },
 });
 
@@ -42,32 +75,6 @@ export default utilSlice.reducer;
 //       if (photo) {
 //           dispatch({ type: "UPLOAD_PHOTO" });
 //       }
-//   } catch (error) {
-//       dispatch({ type: "ERROR", payload: error.response.data.message });
-//   }
-// };
-
-// const likeRecipe = async (id) => {
-//   try {
-//       await API.post(`/api/v1/recipes/like/${id}`).then((recipe) => {
-//           dispatch({
-//               type: "LIKE_RECIPE",
-//               payload: recipe.data.data.recipe.likes,
-//           });
-//       });
-//   } catch (error) {
-//       dispatch({ type: "ERROR", payload: error.response.data.message });
-//   }
-// };
-
-// const unlikeRecipe = async (id) => {
-//   try {
-//       await API.post(`/api/v1/recipes/unlike/${id}`).then((recipe) =>
-//           dispatch({
-//               type: "UNLIKE_RECIPE",
-//               payload: recipe.data.data.recipe.likes,
-//           })
-//       );
 //   } catch (error) {
 //       dispatch({ type: "ERROR", payload: error.response.data.message });
 //   }
