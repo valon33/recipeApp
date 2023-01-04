@@ -1,152 +1,132 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const getRecipes = createAsyncThunk("recipe/getrecipes", async () => {
+    return await axios.get("/api/v1/recipes");
+});
+
+const createRecipe = createAsyncThunk("recipe/createrecipe", async (recipe) => {
+    return await axios.post("/api/v1/recipes", { ...recipe });
+});
+
+const getRecipe = createAsyncThunk("recipe/getrecipe", async (id) => {
+    return await axios.get(`/api/v1/recipes/${id}`);
+});
+
+const getMyRecipes = createAsyncThunk("recipe/getmyrecipes", async () => {
+    return await axios.get(`/api/v1/recipes/myrecipes`);
+});
+
+const updateRecipe = createAsyncThunk("recipe/updaterecipe", async (recipe) => {
+    return await axios.patch(`/api/v1/recipes/${recipe.id}`, { ...recipe });
+});
+
+const deleteRecipe = createAsyncThunk("recipe/deleterecipe", async (id) => {
+    return await axios.delete(`/api/v1/recipes/${id}`);
+});
 
 const initialState = {
-  isModalOpen: false,
-  loading: false,
-  isLogedIn: false,
-  modalId: "",
-  modalRecipe: {},
-  error: [],
-  allRecipes: [],
-  myRecipes: [],
+    loading: false,
+    allRecipes: [],
+    myRecipes: [],
+    recipe: {},
+    createdRecipe: {},
+    error: [],
 };
 
 export const recipeSlice = createSlice({
-  name: "recipe",
-  initialState,
-  reducers: {
-    increment: (state) => {
-      state.value += 1;
+    name: "recipe",
+    initialState,
+
+    extraReducers: (builder) => {
+        builder.addCase(getRecipes.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(getRecipes.fulfilled, (state, action) => {
+            state.loading = false;
+            state.allRecipes = action.payload;
+        });
+
+        builder.addCase(getRecipes.rejected, (state, action) => {
+            state.loading = false;
+            state.allRecipes = [];
+            state.error = action.error.message;
+        });
+
+        builder.addCase(createRecipe.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(createRecipe.fulfilled, (state, action) => {
+            state.loading = false;
+            state.createdRecipe = action.payload;
+        });
+
+        builder.addCase(createRecipe.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
+        });
+
+        builder.addCase(getRecipe.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(getRecipe.fulfilled, (state, action) => {
+            state.loading = false;
+            state.recipe = action.payload;
+        });
+
+        builder.addCase(getRecipe.rejected, (state, action) => {
+            state.loading = false;
+            state.recipe = null;
+            state.error = action.error.message;
+        });
+
+        builder.addCase(getMyRecipes.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(getMyRecipes.fulfilled, (state, action) => {
+            state.loading = false;
+            state.myRecipes = action.payload;
+        });
+
+        builder.addCase(getMyRecipes.rejected, (state, action) => {
+            state.loading = false;
+            state.myRecipes = [];
+            state.error = action.error.message;
+        });
+        builder.addCase(updateRecipe.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(updateRecipe.fulfilled, (state, action) => {
+            state.loading = false;
+            state.recipe = action.payload;
+        });
+
+        builder.addCase(updateRecipe.rejected, (state, action) => {
+            state.loading = false;
+            state.recipe = {};
+            state.error = action.error.message;
+        });
+        builder.addCase(deleteRecipe.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(deleteRecipe.fulfilled, (state, action) => {
+            state.loading = false;
+        });
+
+        builder.addCase(deleteRecipe.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
+        });
     },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
-    },
-  },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = recipeSlice.actions;
+// export const { increment, decrement, incrementByAmount } = recipeSlice.actions;
 
 export default recipeSlice.reducer;
-
-// const getRecipes = async () => {
-//     dispatch({ type: "LOADING" });
-//     try {
-//         const recipes = await API.get(`/api/v1/recipes`);
-
-//         console.log(recipes.data.data.recipe);
-
-//         if (recipes) {
-//             dispatch({
-//                 type: "GET_RECIPES",
-//                 payload: recipes.data.data.recipe,
-//             });
-//         }
-//     } catch (error) {
-//         dispatch({ type: "ERROR", payload: error.response });
-//     }
-// };
-
-// const createRecipe = async (
-//     recipe,
-//     recipeTitle,
-//     category,
-//     prepTime,
-//     shortDescription,
-//     numberPeople,
-//     author,
-//     photo
-// ) => {
-//     try {
-//         const newRecipe = await API.post(`/api/v1/recipes`, {
-//             recipe,
-//             recipeTitle,
-//             category,
-//             prepTime,
-//             shortDescription,
-//             numberPeople,
-//             author,
-//             photo,
-//         });
-
-//         if (newRecipe)
-//             dispatch({
-//                 type: "CREATE_RECIPE",
-//                 payload: newRecipe.data.data.recipe,
-//             });
-//     } catch (error) {
-//         dispatch({ type: "ERROR", payload: error });
-//     }
-// };
-
-// const getMyRecipes = async () => {
-//     try {
-//         const recipes = await API.get(`/api/v1/recipes/myrecipes`);
-//         console.log("My Recipies=>>", recipes.data);
-//         if (recipes)
-//             dispatch({
-//                 type: "GET_MY_RECIPES",
-//                 payload: recipes.data.data.recipes,
-//             });
-//     } catch (error) {
-//         dispatch({ type: "ERROR", payload: error.response.data.message });
-//     }
-// };
-
-// const getRecipe = async (id) => {
-//     try {
-//         await API.get(`/api/v1/recipes/${id}`).then((recipe) => {
-//             dispatch({
-//                 type: "GET_RECIPE",
-//                 payload: recipe.data.data.recipe,
-//             });
-//         });
-//     } catch (error) {
-//         dispatch({ type: "ERROR", payload: error.response.data.message });
-//     }
-// };
-
-// const deleteRecipe = async (id) => {
-//     try {
-//         const deletedRecipe = await API.delete(`/api/v1/recipes/${id}`);
-
-//         if (deletedRecipe) dispatch({ type: "DELETE_RECIPE", payload: id });
-//     } catch (error) {
-//         dispatch({ type: "ERROR", payload: error.response.data.message });
-//     }
-// };
-
-// const updateRecipe = async (
-//     id,
-//     recipe,
-//     recipeTitle,
-//     category,
-//     prepTime,
-//     shortDescription,
-//     numberPeople,
-//     photo
-// ) => {
-//     try {
-//         const updatedRecipe = await API.patch(`/api/v1/recipes/${id}`, {
-//             recipe,
-//             recipeTitle,
-//             category,
-//             prepTime,
-//             shortDescription,
-//             numberPeople,
-//             photo,
-//         });
-
-//         if (updatedRecipe) {
-//             dispatch({
-//                 type: "UPDATE_RECIPE",
-//                 payload: updatedRecipe.data,
-//             });
-//         }
-//     } catch (error) {
-//         dispatch({ type: "ERROR", payload: error.response });
-//     }
-// };

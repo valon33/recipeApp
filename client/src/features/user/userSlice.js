@@ -32,19 +32,6 @@ export const { increment, decrement, incrementByAmount } = userSlice.actions;
 
 export default userSlice.reducer;
 
-// const login = async (email, password) => {
-//     try {
-//         const user = await API.post(`/api/v1/users/login`, {
-//             email,
-//             password,
-//         });
-//         console.log("From the Context current User token", user.data.data);
-//         setToken(user.data.data.token);
-//         if (user) dispatch({ type: "LOGIN", payload: user.data.data.user });
-//     } catch (error) {
-//         dispatch({ type: "ERROR", payload: error.response.data.message });
-//     }
-// };
 
 // const signUp = async ({
 //     name,
@@ -128,12 +115,6 @@ export default userSlice.reducer;
 //     } catch (error) {
 //         dispatch({ type: "ERROR", payload: error.response.data.message });
 //     }
-// };
-
-// const logOut = async () => {
-//     await API.get(`/api/v1/users/logout`);
-//     removeToken("token");
-//     dispatch({ type: "LOGOUT" });
 // };
 
 // const currentUser = async () => {
