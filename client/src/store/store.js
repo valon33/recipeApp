@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import recipeReducer from "../features/recipes/recipeSlice";
-import userReducer from "../features/user/userSlice";
 import utilReducer from "../features/util/utilSlice";
+import authReducer from "../features/auth/authSlice";
 
 export const store = configureStore({
-    reducer: {
-        recipe: recipeReducer,
-        user: userReducer,
-        util: utilReducer,
-    },
+  reducer: {
+    recipe: recipeReducer,
+    util: utilReducer,
+    auth: authReducer,
+  },
 });
