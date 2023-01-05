@@ -1,26 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const login = createAsyncThunk("auth/login", async (email, password) => {
+export const login = createAsyncThunk("auth/login", async (email, password) => {
   return await axios.post(`/api/v1/users/login`, {
     email,
     password,
   });
 });
 
-const signUp = createAsyncThunk("auth/signup", async (newuser) => {
+export const signUp = createAsyncThunk("auth/signup", async (newuser) => {
   return await axios.post(`/api/v1/users/signup`, { ...newuser });
 });
 
-const logOut = createAsyncThunk("auth/logout", async () => {
+export const logOut = createAsyncThunk("auth/logout", async () => {
   await axios.get(`/api/v1/users/logout`);
 });
 
-const currentUser = createAsyncThunk("auth/currentuser", async () => {
+export const currentUser = createAsyncThunk("auth/currentuser", async () => {
   await axios.get(`/api/v1/users/currentuser`);
 });
 
-const updateUser = createAsyncThunk("auth/updateuser", async (user) => {
+export const updateUser = createAsyncThunk("auth/updateuser", async (user) => {
   return await axios.patch(`/api/v1/users/${user.id}`, { ...user });
 });
 
@@ -116,8 +116,5 @@ export const userSlice = createSlice({
     });
   },
 });
-
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = userSlice.actions;
 
 export default userSlice.reducer;

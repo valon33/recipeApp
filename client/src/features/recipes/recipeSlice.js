@@ -1,27 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const getRecipes = createAsyncThunk("recipe/getrecipes", async () => {
+export const getRecipes = createAsyncThunk("recipe/getrecipes", async () => {
     return await axios.get("/api/v1/recipes");
 });
 
-const createRecipe = createAsyncThunk("recipe/createrecipe", async (recipe) => {
+export const createRecipe = createAsyncThunk("recipe/createrecipe", async (recipe) => {
     return await axios.post("/api/v1/recipes", { ...recipe });
 });
 
-const getRecipe = createAsyncThunk("recipe/getrecipe", async (id) => {
+export const getRecipe = createAsyncThunk("recipe/getrecipe", async (id) => {
     return await axios.get(`/api/v1/recipes/${id}`);
 });
 
-const getMyRecipes = createAsyncThunk("recipe/getmyrecipes", async () => {
+export const getMyRecipes = createAsyncThunk("recipe/getmyrecipes", async () => {
     return await axios.get(`/api/v1/recipes/myrecipes`);
 });
 
-const updateRecipe = createAsyncThunk("recipe/updaterecipe", async (recipe) => {
+export const updateRecipe = createAsyncThunk("recipe/updaterecipe", async (recipe) => {
     return await axios.patch(`/api/v1/recipes/${recipe.id}`, { ...recipe });
 });
 
-const deleteRecipe = createAsyncThunk("recipe/deleterecipe", async (id) => {
+export const deleteRecipe = createAsyncThunk("recipe/deleterecipe", async (id) => {
     return await axios.delete(`/api/v1/recipes/${id}`);
 });
 
@@ -125,8 +125,5 @@ export const recipeSlice = createSlice({
         });
     },
 });
-
-// Action creators are generated for each case reducer function
-// export const { increment, decrement, incrementByAmount } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

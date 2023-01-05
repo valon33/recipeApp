@@ -1,15 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const likeRecipe = createAsyncThunk("util/likerecipe", async (id) => {
+export const likeRecipe = createAsyncThunk("util/likerecipe", async (id) => {
   await axios.post(`/api/v1/recipes/like/${id}`);
 });
 
-const unLikeRecipe = createAsyncThunk("util/unlikerecipe", async (id) => {
-  await axios.post(`/api/v1/recipes/unlike/${id}`);
-});
+export const unLikeRecipe = createAsyncThunk(
+  "util/unlikerecipe",
+  async (id) => {
+    await axios.post(`/api/v1/recipes/unlike/${id}`);
+  }
+);
 
-const uploadPhoto = createAsyncThunk(
+export const uploadPhoto = createAsyncThunk(
   "util/uploadPhoto",
   async (selectedPhoto) => {
     const data = new FormData();
@@ -86,8 +89,6 @@ export const utilSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = utilSlice.actions;
+export const { openModal, closeModal, clearError } = utilSlice.actions;
 
 export default utilSlice.reducer;
-
-
