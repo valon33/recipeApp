@@ -74,21 +74,20 @@ export const recipeSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(getRecipes.pending, (state) => {
-      state.loading = true;
-    });
-
-    builder.addCase(getRecipes.fulfilled, (state, action) => {
-      state.loading = false;
-      console.log(action);
-      state.allRecipes = action.payload.data.data.recipe;
-    });
-
-    builder.addCase(getRecipes.rejected, (state, action) => {
-      state.loading = false;
-      state.allRecipes = [];
-      state.error = action.error.message;
-    });
+    builder
+      .addCase(getRecipes.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getRecipes.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log(action);
+        state.allRecipes = action.payload.data.data.recipe;
+      })
+      .addCase(getRecipes.rejected, (state, action) => {
+        state.loading = false;
+        state.allRecipes = [];
+        state.error = action.error.message;
+      });
 
     builder.addCase(createRecipe.pending, (state) => {
       state.loading = true;
@@ -119,20 +118,19 @@ export const recipeSlice = createSlice({
       state.error = action.error.message;
     });
 
-    builder.addCase(getMyRecipes.pending, (state) => {
-      state.loading = true;
-    });
-
-    builder.addCase(getMyRecipes.fulfilled, (state, action) => {
-      state.loading = false;
-      state.myRecipes = action.payload;
-    });
-
-    builder.addCase(getMyRecipes.rejected, (state, action) => {
-      state.loading = false;
-      state.myRecipes = [];
-      state.error = action.error.message;
-    });
+    builder
+      .addCase(getMyRecipes.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getMyRecipes.fulfilled, (state, action) => {
+        state.loading = false;
+        state.myRecipes = action.payload.data.data.recipes;
+      })
+      .addCase(getMyRecipes.rejected, (state, action) => {
+        state.loading = false;
+        state.myRecipes = [];
+        state.error = action.error.message;
+      });
     builder.addCase(updateRecipe.pending, (state) => {
       state.loading = true;
     });
@@ -147,18 +145,17 @@ export const recipeSlice = createSlice({
       state.recipe = {};
       state.error = action.error.message;
     });
-    builder.addCase(deleteRecipe.pending, (state) => {
-      state.loading = true;
-    });
-
-    builder.addCase(deleteRecipe.fulfilled, (state, action) => {
-      state.loading = false;
-    });
-
-    builder.addCase(deleteRecipe.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+    builder
+      .addCase(deleteRecipe.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteRecipe.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(deleteRecipe.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
 export const { mostLiked, newest, sorted } = recipeSlice.actions;

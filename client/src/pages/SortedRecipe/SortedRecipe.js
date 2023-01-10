@@ -21,10 +21,12 @@ const SortedRecipe = () => {
     dispatch(sorted(category));
   }, [category, allRecipes]);
 
+  const heigt = sortedRecipes.length === 0 && "45vh";
+
   return (
     <MainLayout>
       <PageTitle description={category.toUpperCase()} />
-      <div className="recipe-cards">
+      <div className="recipe-cards" style={{ minHeight: heigt }}>
         {!sortedRecipes && <Spinner />}
         {sortedRecipes &&
           sortedRecipes.map((recipe) => {
