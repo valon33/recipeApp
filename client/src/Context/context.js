@@ -54,20 +54,6 @@ const AppProvider = ({ children }) => {
   //     }
   //   };
 
-  //   const getMyRecipes = async () => {
-  //     try {
-  //       const recipes = await API.get(`/api/v1/recipes/myrecipes`);
-  //       console.log("My Recipies=>>", recipes.data);
-  //       if (recipes)
-  //         dispatch({
-  //           type: "GET_MY_RECIPES",
-  //           payload: recipes.data.data.recipes,
-  //         });
-  //     } catch (error) {
-  //       dispatch({ type: "ERROR", payload: error.response.data.message });
-  //     }
-  //   };
-
   //   const getRecipe = async (id) => {
   //     try {
   //       await API.get(`/api/v1/recipes/${id}`).then((recipe) => {
@@ -76,16 +62,6 @@ const AppProvider = ({ children }) => {
   //           payload: recipe.data.data.recipe,
   //         });
   //       });
-  //     } catch (error) {
-  //       dispatch({ type: "ERROR", payload: error.response.data.message });
-  //     }
-  //   };
-
-  //   const deleteRecipe = async (id) => {
-  //     try {
-  //       const deletedRecipe = await API.delete(`/api/v1/recipes/${id}`);
-
-  //       if (deletedRecipe) dispatch({ type: "DELETE_RECIPE", payload: id });
   //     } catch (error) {
   //       dispatch({ type: "ERROR", payload: error.response.data.message });
   //     }

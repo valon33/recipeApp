@@ -6,11 +6,17 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
 import Select from "../../components/Form/Select";
 import TextArea from "../../components/Form/TextArea";
-import { useGlobalContext } from "../../Context/context";
+// import { useGlobalContext } from "../../Context/context";
+import { useSelector, useDispatch } from "react-redux";
+import { createRecipe } from "../../features/recipes/recipeSlice";
+import { uploadPhoto } from "../../features/util/utilSlice";
 
 const CreateRecipe = () => {
+    const { user: currentUser } = useSelector((state) => state.auth);
     const navigate = useNavigate();
-    const { createRecipe, uploadPhoto, currentUser } = useGlobalContext();
+    const dispatch = useDispatch();
+    // const { createRecipe, uploadPhoto, currentUser } = useGlobalContext();
+
     const [inputValue, setInputValue] = useState({
         recipeTitle: "",
         category: "",
@@ -29,8 +35,6 @@ const CreateRecipe = () => {
         shortDescription,
         recipe,
     } = inputValue;
-
-    console.log(inputValue);
 
     useEffect(() => {
         setPreviewImg(
@@ -71,36 +75,40 @@ const CreateRecipe = () => {
         ) {
             if (selectedFile) {
                 const photo = JSON.stringify(selectedFile.name);
-                // const photo = selectedFile.name;
                 console.log("photo", photo);
                 console.log("selectedFile", selectedFile);
-                uploadPhoto(selectedFile);
-                createRecipe(
-                    recipe,
-                    recipeTitle,
-                    category,
-                    prepTime,
-                    shortDescription,
-                    numberPeople,
-                    author,
-                    photo
+
+                dispatch(uploadPhoto(selectedFile));
+                dispatch(
+                    createRecipe({
+                        recipe,
+                        recipeTitle,
+                        category,
+                        prepTime,
+                        shortDescription,
+                        numberPeople,
+                        author,
+                        photo,
+                    })
                 );
             }
 
             if (!selectedFile) {
-                createRecipe(
-                    recipe,
-                    recipeTitle,
-                    category,
-                    prepTime,
-                    shortDescription,
-                    numberPeople,
-                    author
+                dispatch(
+                    createRecipe({
+                        recipe,
+                        recipeTitle,
+                        category,
+                        prepTime,
+                        shortDescription,
+                        numberPeople,
+                        author,
+                    })
                 );
             }
         }
 
-        navigate("/myrecipes");
+        // navigate("/myrecipes");
     };
 
     return (

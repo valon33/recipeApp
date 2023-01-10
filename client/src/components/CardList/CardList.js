@@ -6,7 +6,7 @@ const CardList = ({ recipes, currentUser }) => {
         <>
             {recipes.map((recipe) => {
                 const liked =
-                    recipe.likes.filter((rec) => rec.user === currentUser._id)
+                    recipe.likes.filter((rec) => rec.user === currentUser?._id)
                         .length > 0;
                 return (
                     <Card
