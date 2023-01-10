@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
-import { useGlobalContext } from "../../Context/context";
 import { useSelector, useDispatch } from "react-redux";
 import { signUp } from "../../features/auth/authSlice";
 
 const SignUp = () => {
-  // const { signUp } = useGlobalContext();
+  const { user } = useSelector((state) => state.auth);
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -18,7 +18,13 @@ const SignUp = () => {
   });
   const { email, password, passwordConfirm, name, lastName, birthDay } =
     inputValue;
+  let navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(user);
+    user && navigate("/");
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +36,6 @@ const SignUp = () => {
 
   const SubmitSignUp = async (e) => {
     e.preventDefault();
-    // signUp(inputValue);
     dispatch(signUp(inputValue));
   };
 

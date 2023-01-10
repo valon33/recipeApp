@@ -50,6 +50,7 @@ const initialState = {
   error: [],
   newestRecipes: [],
   mostLikedRecipes: [],
+  sortedRecipes: [],
 };
 
 export const recipeSlice = createSlice({
@@ -63,6 +64,12 @@ export const recipeSlice = createSlice({
       state.newestRecipes = _.sortBy(state?.allRecipes, ["createdAt"])
         .reverse()
         .slice(0, 3);
+    },
+    sorted: (state, action) => {
+      console.log("action", action);
+      state.sortedRecipes = state.allRecipes.filter(
+        (recepis) => recepis.category === action.payload
+      );
     },
   },
 
@@ -154,6 +161,6 @@ export const recipeSlice = createSlice({
     });
   },
 });
-export const { mostLiked, newest } = recipeSlice.actions;
+export const { mostLiked, newest, sorted } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

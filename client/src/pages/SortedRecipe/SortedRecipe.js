@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Card from "../../components/Card/Card";
 import Spinner from "../../components/Spinner/Spinner";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getRecipes, sorted } from "../../features/recipes/recipeSlice";
 
 const SortedRecipe = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { allRecipes } = useSelector((state) => state.recipe);
-  const [categoryRecipes, setCategoryRecipes] = useState([]);
+  const { allRecipes, sortedRecipes } = useSelector((state) => state.recipe);
   const { category } = useParams();
+  const dispatch = useDispatch();
 
-  console.log(allRecipes);
   useEffect(() => {
-    const catRecipes = allRecipes.data.data.recipe.filter(
-      (recepis) => recepis.category === category
-    );
-    setCategoryRecipes(catRecipes);
+    if (allRecipes.length === 0) dispatch(getRecipes());
+  }, []);
+
+  useEffect(() => {
+    dispatch(sorted(category));
   }, [category, allRecipes]);
 
   return (
     <MainLayout>
       <PageTitle description={category.toUpperCase()} />
       <div className="recipe-cards">
-        {!categoryRecipes && <Spinner />}
-        {categoryRecipes &&
-          categoryRecipes.map((recipe) => {
+        {!sortedRecipes && <Spinner />}
+        {sortedRecipes &&
+          sortedRecipes.map((recipe) => {
             const liked =
               recipe.likes.filter((rec) => rec.user === currentUser._id)
                 .length > 0;
