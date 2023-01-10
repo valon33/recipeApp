@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import API from "../../http";
 
 export const likeRecipe = createAsyncThunk("util/likerecipe", async (id) => {
-  await axios.post(`/api/v1/recipes/like/${id}`);
+  await API.post(`/api/v1/recipes/like/${id}`);
 });
 
 export const unLikeRecipe = createAsyncThunk(
   "util/unlikerecipe",
   async (id) => {
-    await axios.post(`/api/v1/recipes/unlike/${id}`);
+    await API.post(`/api/v1/recipes/unlike/${id}`);
   }
 );
 
@@ -18,7 +18,7 @@ export const uploadPhoto = createAsyncThunk(
     const data = new FormData();
     data.append("photo", selectedPhoto);
 
-    const photo = await axios.post(`/api/v1/upload`, data);
+    const photo = await API.post(`/api/v1/upload`, data);
     return photo;
   }
 );

@@ -4,20 +4,24 @@ import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
 import Button from "../../components/Button/Button";
-// import { useGlobalContext } from "../../Context/context";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 const LogIn = () => {
-  const { user, error } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   let navigate = useNavigate();
 
-  // const { login } = useGlobalContext();
   const [inputValue, setInputValue] = useState({ email: "", password: "" });
   const { email, password } = inputValue;
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log(user);
+    user && navigate("/");
+  }, []);
+
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputValue((prev) => ({
@@ -25,15 +29,13 @@ const LogIn = () => {
       [name]: value,
     }));
   };
-  console.log(error);
+
   const SubmitLogin = async (e) => {
-    console.log(email, password);
     e.preventDefault();
     await dispatch(login({ email, password }));
     navigate("/");
   };
 
-  console.log("user.user", user);
   return (
     <MainLayout>
       <PageTitle description="Sign In" />
@@ -62,7 +64,6 @@ const LogIn = () => {
               inputLabel="Email"
               inputId="email"
               placeholder="example@example.com"
-              // onChange={(e) => setEmail(e.target.value)}
               onChange={handleChange}
               value={email}
             />
@@ -72,7 +73,6 @@ const LogIn = () => {
               inputLabel="Password"
               inputId="password"
               placeholder="***********"
-              // onChange={(e) => setPassword(e.target.value)}
               onChange={handleChange}
               value={password}
             />

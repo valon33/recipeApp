@@ -1,5 +1,4 @@
-import React, { useContext, useReducer, useEffect } from "react";
-import reducer from "../Reducer/reducer";
+import React, { state, useContext, useReducer, useEffect } from "react";
 import API from "../http";
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -20,7 +19,7 @@ const initialState = {
 };
 
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  //   const [state, dispatch] = useReducer(reducer, initialState);
   const [token, setToken, removeToken] = useLocalStorage("token", null);
 
   //   const createRecipe = async (

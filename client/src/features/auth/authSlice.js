@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-const baseUrl = "http://localhost:5000";
+import API from "../../http";
 
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     console.log("wtf", email, password);
     try {
-      return await axios.post(`${baseUrl}/api/v1/users/login`, {
+      return await API.post(`/api/v1/users/login`, {
         email,
         password,
       });
@@ -20,26 +19,26 @@ export const login = createAsyncThunk(
 );
 
 export const signUp = createAsyncThunk("auth/signup", async (newuser) => {
-  return await axios.post(`${baseUrl}/api/v1/users/signup`, { ...newuser });
+  return await API.post(`/api/v1/users/signup`, { ...newuser });
 });
 
 export const logOut = createAsyncThunk("auth/logout", async () => {
   window.localStorage.removeItem("token");
-  return await axios.get(`${baseUrl}/api/v1/users/logout`);
+  return await API.get(`/api/v1/users/logout`);
 });
 
 export const currentUser = createAsyncThunk("auth/currentuser", async () => {
-  return await axios.get(`${baseUrl}/api/v1/users/currentuser`);
+  return await API.get(`/api/v1/users/currentuser`);
 });
 
 export const updateUser = createAsyncThunk("auth/updateuser", async (user) => {
-  return await axios.patch(`${baseUrl}/api/v1/users/${user.id}`, { ...user });
+  return await API.patch(`/api/v1/users/${user.id}`, { ...user });
 });
 
 const initialState = {
   loading: false,
   token: "",
-  user: {},
+  user: null,
   isLoggedIn: false,
   error: [],
 };
@@ -62,15 +61,15 @@ export const userSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.isLoggedIn = false;
-        state.user = "";
-        state.token = "";
+        state.user = null;
+        state.token = null;
         state.error = action.error.message;
       });
 
     builder.addCase(logOut.fulfilled, (state) => {
       state.isLoggedIn = false;
-      state.user = {};
-      state.token = "";
+      state.user = null;
+      state.token = null;
     });
 
     // builder.addCase(currentUser.pending, (state) => {
