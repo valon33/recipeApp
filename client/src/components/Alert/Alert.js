@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { RiCloseFill } from "react-icons/ri";
-import { useGlobalContext } from "../../Context/context";
+// import { useGlobalContext } from "../../Context/context";
 
 const Alert = () => {
-  const { error, clearError } = useGlobalContext();
+  // const { error, clearError } = useGlobalContext();
   //   const [time, setTime] = useState(5);
 
   //   useEffect(() => {
@@ -18,8 +18,8 @@ const Alert = () => {
   return (
     <>
       <div className="alert">
-        <p>{error}</p>
-        <RiCloseFill onClick={() => clearError()} />
+        {/* <p>{error}</p> */}
+        {/* <RiCloseFill onClick={() => clearError()} /> */}
       </div>
       {/* {time > 0 && (
         <div className="alert">

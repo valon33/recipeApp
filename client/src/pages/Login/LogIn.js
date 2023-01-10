@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
 import Button from "../../components/Button/Button";
-import { useGlobalContext } from "../../Context/context";
+// import { useGlobalContext } from "../../Context/context";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../features/auth/authSlice";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const LogIn = () => {
+  const { user, error } = useSelector((state) => state.auth);
   let navigate = useNavigate();
-  const { login } = useGlobalContext();
+
+  // const { login } = useGlobalContext();
   const [inputValue, setInputValue] = useState({ email: "", password: "" });
   const { email, password } = inputValue;
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,14 +25,15 @@ const LogIn = () => {
       [name]: value,
     }));
   };
-
-  const SubmitLogin = (e) => {
+  console.log(error);
+  const SubmitLogin = async (e) => {
     console.log(email, password);
     e.preventDefault();
-    login(email, password);
+    await dispatch(login({ email, password }));
     navigate("/");
   };
 
+  console.log("user.user", user);
   return (
     <MainLayout>
       <PageTitle description="Sign In" />

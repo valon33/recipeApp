@@ -3,9 +3,11 @@ import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
 import { useGlobalContext } from "../../Context/context";
+import { useSelector, useDispatch } from "react-redux";
+import { signUp } from "../../features/auth/authSlice";
 
 const SignUp = () => {
-  const { signUp } = useGlobalContext();
+  // const { signUp } = useGlobalContext();
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -16,6 +18,7 @@ const SignUp = () => {
   });
   const { email, password, passwordConfirm, name, lastName, birthDay } =
     inputValue;
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +30,8 @@ const SignUp = () => {
 
   const SubmitSignUp = async (e) => {
     e.preventDefault();
-    signUp(inputValue);
+    // signUp(inputValue);
+    dispatch(signUp(inputValue));
   };
 
   return (

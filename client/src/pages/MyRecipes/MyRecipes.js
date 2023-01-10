@@ -7,16 +7,21 @@ import Spinner from "../../components/Spinner/Spinner";
 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdAddCircle } from "react-icons/md";
-import { useGlobalContext } from "../../Context/context";
+// import { useGlobalContext } from "../../Context/context";
+import { useSelector, useDispatch } from "react-redux";
+import { getMyRecipes, deleteRecipe } from "../../features/recipes/recipeSlice";
 
 const MyRecipes = () => {
-  const { myRecipes, getMyRecipes, deleteRecipe } = useGlobalContext();
+  // const { myRecipes, deleteRecipe } = useGlobalContext();
+  const { myRecipes } = useSelector((state) => state.recipe);
+  const dispatch = useDispatch();
   useEffect(() => {
-    getMyRecipes();
+    // getMyRecipes();
+    dispatch(getMyRecipes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(myRecipes);
+  console.log("myRecipes", myRecipes);
   return (
     <MainLayout>
       <PageTitle
@@ -38,7 +43,7 @@ const MyRecipes = () => {
       <div>
         {!myRecipes && <Spinner />}
         {myRecipes &&
-          myRecipes.map((recipe) => {
+          myRecipes?.data?.data?.recipes?.map((recipe) => {
             return (
               <div className="myrecipe" key={recipe._id}>
                 <div className="myrecipe__box">
@@ -61,7 +66,7 @@ const MyRecipes = () => {
                 </div>
                 <RiDeleteBin5Line
                   className="myrecipe__icon"
-                  onClick={() => deleteRecipe(recipe._id)}
+                  onClick={() => dispatch(deleteRecipe(recipe._id))}
                 />
               </div>
             );

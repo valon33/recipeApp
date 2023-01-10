@@ -5,7 +5,7 @@ import {
     IoTimeOutline,
 } from "react-icons/io5";
 import { TiArrowForward } from "react-icons/ti";
-import { useGlobalContext } from "../../Context/context";
+// import { useGlobalContext } from "../../Context/context";
 
 const Card = ({
     category,
@@ -18,14 +18,14 @@ const Card = ({
     liked,
     id,
 }) => {
-    const { openModal, likeRecipe, unlikeRecipe } = useGlobalContext();
+    // const { openModal, likeRecipe, unlikeRecipe } = useGlobalContext();
     const baseUrl = "https://recipe-app-backend-4xd6.onrender.com";
 
     const toggleLikeRecepies = () => {
         if (liked === false) {
-            likeRecipe(id);
+            // likeRecipe(id);
         } else if (liked === true) {
-            unlikeRecipe(id);
+            // unlikeRecipe(id);
         }
     };
 
@@ -72,7 +72,7 @@ const Card = ({
                     </span>
                 </div>
                 <button className=" green card--btn">
-                    <TiArrowForward onClick={() => openModal(id)} />
+                    {/* <TiArrowForward onClick={() => openModal(id)} /> */}
                 </button>
             </div>
         </div>

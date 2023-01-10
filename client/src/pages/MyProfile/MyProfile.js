@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
-import { useGlobalContext } from "../../Context/context";
+import { useSelector, useDispatch } from "react-redux";
+import { currentUser, updateUser } from "../../features/auth/authSlice";
+import { uploadPhoto } from "../../features/util/utilSlice";
 
 const MyProfile = () => {
-  const { currentUser, updatUser, uploadPhoto, loading } = useGlobalContext();
+  const { user: currentUser, loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImg, setPreviewImg] = useState("");
   const [name, setName] = useState("");
@@ -42,26 +46,30 @@ const MyProfile = () => {
     if (selectedFile) {
       let photo = selectedFile.name;
       uploadPhoto(selectedFile);
-      return updatUser(
-        id,
-        name,
-        email,
-        lastName,
-        birthday,
-        password,
-        passwordConfirm,
-        photo
+      return dispatch(
+        updateUser(
+          id,
+          name,
+          email,
+          lastName,
+          birthday,
+          password,
+          passwordConfirm,
+          photo
+        )
       );
     } else {
-      updatUser(
-        id,
-        name,
-        email,
-        lastName,
-        birthday,
-        password,
-        passwordConfirm
-        // (photo = "")
+      dispatch(
+        updateUser(
+          id,
+          name,
+          email,
+          lastName,
+          birthday,
+          password,
+          passwordConfirm
+          // (photo = "")
+        )
       );
     }
   };

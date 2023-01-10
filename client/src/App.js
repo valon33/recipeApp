@@ -4,11 +4,11 @@ import Alert from "./components/Alert/Alert";
 import { useGlobalContext } from "./Context/context";
 
 function App() {
-  const { isModalOpen, error } = useGlobalContext();
+  // const { isModalOpen, error } = useGlobalContext();
   return (
     <div className="App">
-      {isModalOpen && <Modal />}
-      {error?.length > 0 && <Alert />}
+      {/* {isModalOpen && <Modal />} */}
+      {/* {error?.length > 0 && <Alert />} */}
       <RecipeRoutes />
     </div>
   );

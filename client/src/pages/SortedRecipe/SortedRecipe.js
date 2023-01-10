@@ -4,16 +4,17 @@ import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Card from "../../components/Card/Card";
 import Spinner from "../../components/Spinner/Spinner";
-import { useGlobalContext } from "../../Context/context";
+import { useSelector } from "react-redux";
 
 const SortedRecipe = () => {
-  const { allRecipes, currentUser } = useGlobalContext();
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const { allRecipes } = useSelector((state) => state.recipe);
   const [categoryRecipes, setCategoryRecipes] = useState([]);
-  const navigate = useNavigate();
   const { category } = useParams();
 
+  console.log(allRecipes);
   useEffect(() => {
-    const catRecipes = allRecipes.filter(
+    const catRecipes = allRecipes.data.data.recipe.filter(
       (recepis) => recepis.category === category
     );
     setCategoryRecipes(catRecipes);
