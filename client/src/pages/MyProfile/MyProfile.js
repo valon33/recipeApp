@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
 import { useSelector, useDispatch } from "react-redux";
-import { currentUser, updateUser } from "../../features/auth/authSlice";
+import { updateUser } from "../../features/auth/authSlice";
 import { uploadPhoto } from "../../features/util/utilSlice";
+// import "react-datepicker/dist/react-datepicker.css";
 
 const MyProfile = () => {
   const { user: currentUser, loading } = useSelector((state) => state.auth);
@@ -21,6 +24,13 @@ const MyProfile = () => {
   const [photo, setPhoto] = useState("");
 
   console.log("wtf", currentUser);
+  console.log("birthday", birthday);
+  console.log(
+    "birthday Converted",
+    `${new Date(birthday).getDate()}-${
+      new Date(birthday).getMonth() + 1
+    }-${new Date(birthday).getFullYear()}`
+  );
 
   useEffect(() => {
     setName(currentUser.name);
@@ -45,9 +55,9 @@ const MyProfile = () => {
     const id = currentUser._id;
     if (selectedFile) {
       let photo = selectedFile.name;
-      uploadPhoto(selectedFile);
-      return dispatch(
-        updateUser(
+      dispatch(uploadPhoto(selectedFile));
+      dispatch(
+        updateUser({
           id,
           name,
           email,
@@ -55,21 +65,20 @@ const MyProfile = () => {
           birthday,
           password,
           passwordConfirm,
-          photo
-        )
+          photo,
+        })
       );
     } else {
       dispatch(
-        updateUser(
+        updateUser({
           id,
           name,
           email,
           lastName,
           birthday,
           password,
-          passwordConfirm
-          // (photo = "")
-        )
+          passwordConfirm,
+        })
       );
     }
   };
@@ -80,14 +89,14 @@ const MyProfile = () => {
       <div className="myprofile">
         <div className="myprofile__photo">
           <img
-            src={
-              photo && !previewImg
-                ? `/api/v1/upload/${photo}`
-                : previewImg ||
-                  (!photo &&
-                    !previewImg &&
-                    "https://cdn1.iconfinder.com/data/icons/avatar-97/32/avatar-02-512.png")
-            }
+            src={"./images/default.jpg"}
+            //   photo && !previewImg
+            //     ? `http://localhost:5000/api/v1/upload/${photo}`
+            //     : previewImg ||
+            //       (!photo && !previewImg && "./images/default.jpg")
+            //   // "https://cdn1.iconfinder.com/data/icons/avatar-97/32/avatar-02-512.png")
+            // }
+            // loading="lazy"
             alt="Avatar"
             className="avatar"
           />
@@ -117,7 +126,6 @@ const MyProfile = () => {
                 inputLabel="First Name"
                 placeholder="John"
                 name="name"
-                // onChange={handleChange}
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               />
@@ -148,10 +156,19 @@ const MyProfile = () => {
                 inputLabel="Birth Day"
                 name="birthday"
                 onChange={(e) => setBirthDay(e.target.value)}
-                value={`${new Date(birthday).getFullYear()}-${
-                  new Date(birthday).getMonth() + 1
-                }-${new Date(birthday).getDate()}`}
+                value={birthday}
+                // value={`${new Date(birthday).getFullYear()}-${
+                //   new Date(birthday).getMonth() + 1
+                // }-${new Date(birthday).getDate()}`}
               />
+              {/* <div className="date">
+                <DatePicker
+                  selected={birthday}
+                  onChange={(date) => setBirthDay(date)}
+                  showTimeSelect
+                  className="date"
+                />
+              </div> */}
               <Input
                 inputType="password"
                 inputId="password"

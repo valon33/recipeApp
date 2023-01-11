@@ -86,29 +86,17 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   if (req.body.password) {
     req.body.password = bcrypt.hashSync(req.body.password);
   }
+  console.log("from controller", user);
 
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
+  console.log("from controller", user);
 
   if (!user) {
     return next(new AppError("There is no User with that Id", 404));
   }
-
-  // if (!req.body.password || req.body.password !== req.body.passwordConfirm) {
-  // if (req.body.password && req.body.password !== req.body.passwordConfirm) {
-  //   return next(
-  //     new AppError(
-  //       "Bad request. Password does not exist or does not match the confirmation password.",
-  //       400
-  //     )
-  //   );
-  // }
-
-  // if (req.body.password) {
-  //   req.body.password = bcrypt.hashSync(req.body.password);
-  // }
 
   res.status(200).json({
     status: "success",

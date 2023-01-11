@@ -126,65 +126,6 @@ const AppProvider = ({ children }) => {
   //     }
   //   };
 
-  //   const updateUser = async (
-  //     id,
-  //     name,
-  //     email,
-  //     lastName,
-  //     birthday,
-  //     password,
-  //     passwordConfirm,
-  //     photo
-  //   ) => {
-  //     try {
-  //       let updateUser;
-  //       if (!password && !passwordConfirm && !photo) {
-  //         updateUser = await API.patch(`/api/v1/users/${id}`, {
-  //           name,
-  //           email,
-  //           lastName,
-  //           birthday,
-  //         });
-  //       } else if (!password && !passwordConfirm && photo) {
-  //         updateUser = await API.patch(`/api/v1/users/${id}`, {
-  //           name,
-  //           email,
-  //           lastName,
-  //           birthday,
-  //           photo,
-  //         });
-  //       } else if (password && !photo) {
-  //         updateUser = await API.patch(`/api/v1/users/${id}`, {
-  //           name,
-  //           email,
-  //           lastName,
-  //           birthday,
-  //           password,
-  //           passwordConfirm,
-  //         });
-  //       } else if (password && passwordConfirm && photo) {
-  //         updateUser = await API.patch(`/api/v1/users/${id}`, {
-  //           name,
-  //           email,
-  //           lastName,
-  //           birthday,
-  //           password,
-  //           passwordConfirm,
-  //           photo,
-  //         });
-  //       }
-
-  //       if (updateUser) {
-  //         dispatch({
-  //           type: "UPDATE_USER",
-  //           payload: updateUser.data,
-  //         });
-  //       }
-  //     } catch (error) {
-  //       dispatch({ type: "ERROR", payload: error.response.data.message });
-  //     }
-  //   };
-
   //   const currentUser = async () => {
   //     try {
   //       const user = await API.get(`/api/v1/users/currentuser`);
@@ -194,22 +135,7 @@ const AppProvider = ({ children }) => {
   //     }
   //   };
 
-  //   // *UTIL FUNCTIONS
 
-  //   const uploadPhoto = async (selectedPhoto) => {
-  //     try {
-  //       const data = new FormData();
-  //       data.append("photo", selectedPhoto);
-
-  //       const photo = await API.post(`/api/v1/upload`, data);
-
-  //       if (photo) {
-  //         dispatch({ type: "UPLOAD_PHOTO" });
-  //       }
-  //     } catch (error) {
-  //       dispatch({ type: "ERROR", payload: error.response.data.message });
-  //     }
-  //   };
 
   //   const likeRecipe = async (id) => {
   //     try {
