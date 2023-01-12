@@ -112,7 +112,7 @@ export const userSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
         console.log("from redux", action.payload);
-        state.user = action.payload;
+        state.user = action.payload.data.data.user;
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;

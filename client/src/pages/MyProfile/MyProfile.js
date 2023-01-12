@@ -23,14 +23,14 @@ const MyProfile = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [photo, setPhoto] = useState("");
 
-  console.log("wtf", currentUser);
-  console.log("birthday", birthday);
-  console.log(
-    "birthday Converted",
-    `${new Date(birthday).getDate()}-${
-      new Date(birthday).getMonth() + 1
-    }-${new Date(birthday).getFullYear()}`
-  );
+  // console.log("wtf", currentUser);
+  // console.log("birthday", birthday);
+  // console.log(
+  //   "birthday Converted",
+  //   `${new Date(birthday).getDate()}-${
+  //     new Date(birthday).getMonth() + 1
+  //   }-${new Date(birthday).getFullYear()}`
+  // );
 
   useEffect(() => {
     setName(currentUser.name);
@@ -63,8 +63,6 @@ const MyProfile = () => {
           email,
           lastName,
           birthday,
-          password,
-          passwordConfirm,
           photo,
         })
       );
@@ -76,11 +74,14 @@ const MyProfile = () => {
           email,
           lastName,
           birthday,
-          password,
-          passwordConfirm,
         })
       );
     }
+  };
+  console.log(new Date("2023-01-17T00:00:00.000Z").toUTCString());
+
+  const submitPasswordUpdate = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -156,7 +157,7 @@ const MyProfile = () => {
                 inputLabel="Birth Day"
                 name="birthday"
                 onChange={(e) => setBirthDay(e.target.value)}
-                value={birthday}
+                value={birthday.split("T")[0]}
                 // value={`${new Date(birthday).getFullYear()}-${
                 //   new Date(birthday).getMonth() + 1
                 // }-${new Date(birthday).getDate()}`}
