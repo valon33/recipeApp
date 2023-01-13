@@ -11,6 +11,11 @@ router.post("/signup", authController.signUp);
 router.post("/login", authController.login);
 router.post("/creatadminuser", userController.createUser);
 router.post("/updateme", authController.protect, userController.updateMe);
+router.patch(
+  "/changepassword",
+  authController.protect,
+  userController.changeUserPassword
+);
 router.get("/currentuser", authController.chekUser);
 router.delete("/deleteme", authController.protect, userController.deleteMe);
 
