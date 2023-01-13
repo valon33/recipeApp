@@ -5,7 +5,7 @@ import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Input from "../../components/Form/Input";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUser } from "../../features/auth/authSlice";
+import { updateUser, changeUserPassword } from "../../features/auth/authSlice";
 import { uploadPhoto } from "../../features/util/utilSlice";
 // import "react-datepicker/dist/react-datepicker.css";
 
@@ -19,6 +19,7 @@ const MyProfile = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthDay] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [photo, setPhoto] = useState("");
@@ -80,8 +81,15 @@ const MyProfile = () => {
   };
   console.log(new Date("2023-01-17T00:00:00.000Z").toUTCString());
 
-  const submitPasswordUpdate = (e) => {
+  const submitchangePassword = (e) => {
     e.preventDefault();
+    dispatch(
+      changeUserPassword({
+        oldPassword,
+        password,
+        passwordConfirm,
+      })
+    );
   };
 
   return (
@@ -130,15 +138,7 @@ const MyProfile = () => {
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               />
-              <Input
-                inputType="text"
-                inputId="lastName"
-                inputLabel="Last Name"
-                placeholder="Doe"
-                name="lastName"
-                onChange={(e) => setLastName(e.target.value)}
-                value={lastName}
-              />
+
               <Input
                 inputType="email"
                 inputId="email"
@@ -152,6 +152,16 @@ const MyProfile = () => {
 
             <div style={{ width: "50%", padding: "5px" }}>
               <Input
+                inputType="text"
+                inputId="lastName"
+                inputLabel="Last Name"
+                placeholder="Doe"
+                name="lastName"
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastName}
+              />
+
+              <Input
                 inputType="date"
                 inputId="birthday"
                 inputLabel="Birth Day"
@@ -162,14 +172,39 @@ const MyProfile = () => {
                 //   new Date(birthday).getMonth() + 1
                 // }-${new Date(birthday).getDate()}`}
               />
-              {/* <div className="date">
-                <DatePicker
-                  selected={birthday}
-                  onChange={(date) => setBirthDay(date)}
-                  showTimeSelect
-                  className="date"
-                />
-              </div> */}
+            </div>
+
+            <div className="col-12">
+              <button
+                type="submit"
+                className="btn btn-primary button green signup__btn"
+              >
+                Save
+              </button>
+            </div>
+          </form>
+
+          <form
+            className="row g-3 "
+            onSubmit={(e) => submitchangePassword(e)}
+            style={{ display: "flex", flexWrap: "wrap" }}
+          >
+            <div
+              style={{
+                width: "100%",
+                padding: "5px",
+                display: "flex",
+              }}
+            >
+              <Input
+                inputType="password"
+                inputId="oldPassword"
+                inputLabel="oldPassword"
+                placeholder="*******"
+                name="oldPassword"
+                onChange={(e) => setOldPassword(e.target.value)}
+                value={oldPassword}
+              />
               <Input
                 inputType="password"
                 inputId="password"
@@ -189,13 +224,12 @@ const MyProfile = () => {
                 value={passwordConfirm}
               />
             </div>
-
             <div className="col-12">
               <button
                 type="submit"
                 className="btn btn-primary button green signup__btn"
               >
-                Save
+                Change Password
               </button>
             </div>
           </form>

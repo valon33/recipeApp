@@ -36,6 +36,17 @@ export const updateUser = createAsyncThunk("auth/updateuser", async (user) => {
   console.log("id from api", user.id);
   return await API.patch(`/api/v1/users/${user.id}`, { ...user });
 });
+export const changeUserPassword = createAsyncThunk(
+  "auth/changepassword",
+  async (user) => {
+    console.log("changePassword", user);
+    return await API.patch(`/api/v1/users/changepassword`, {
+      oldPassword: user.oldPassword,
+      password: user.password,
+      passwordConfirm: user.passwordConfirm,
+    });
+  }
+);
 
 const initialState = {
   loading: false,
@@ -115,6 +126,20 @@ export const userSlice = createSlice({
         state.user = action.payload.data.data.user;
       })
       .addCase(updateUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(changeUserPassword.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(changeUserPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log("from redux change password", action.payload);
+        state.user = action.payload.data.data.user;
+      })
+      .addCase(changeUserPassword.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
