@@ -8,6 +8,7 @@ import MyRecipes from "./pages/MyRecipes/MyRecipes";
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe";
 import UpdateRecipe from "./pages/UpdateRecepie/UpdateRecipe";
 import SortedRecipe from "./pages/SortedRecipe/SortedRecipe";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import Error from "./pages/Error/Error";
 
 const RecipeRoutes = () => {
@@ -17,6 +18,7 @@ const RecipeRoutes = () => {
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/myprofile" element={<MyProfile />} />
+            <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/myrecipes" element={<MyRecipes />} />
             <Route path="/myrecipes/:id" element={<UpdateRecipe />} />
             <Route path="/create" element={<CreateRecipe />} />
