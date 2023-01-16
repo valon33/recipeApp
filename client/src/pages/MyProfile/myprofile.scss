@@ -1,21 +1,33 @@
 .myprofile {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  &__photo {
+    margin: 0 auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
 
-    @media (max-width: 768px) {
-        flex-direction: column;
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 200px;
     }
+  }
 
-    &__photo {
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+  &__change-password {
+    color: blue;
+    font-size: 11px;
 
-        img {
-            width: 200px;
-            height: 200px;
-            border-radius: 200px;
-        }
+    &:visited {
+      color: blue;
     }
+    &:active {
+      color: blue;
+    }
+  }
 }

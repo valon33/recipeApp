@@ -87,13 +87,17 @@ export const userSlice = createSlice({
 
     builder
       .addCase(currentUser.pending, (state) => {
+        state.loading = true;
         state.isLoggedIn = false;
       })
       .addCase(currentUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.loading = false;
+        console.log("curr", action.payload.data.user);
+        state.user = action.payload.data.user;
         state.isLoggedIn = true;
       })
       .addCase(currentUser.rejected, (state, action) => {
+        state.loading = false;
         state.isLoggedIn = false;
         state.user = null;
         state.error = action.error.message;
