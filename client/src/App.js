@@ -9,24 +9,25 @@ import Alert from "./components/Alert/Alert";
 import { useGlobalContext } from "./Context/context";
 
 function App() {
-  // const { isModalOpen, error } = useGlobalContext();
-  const { user, loading } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+    // const { isModalOpen, error } = useGlobalContext();
+    const { user, loading } = useSelector((state) => state.auth);
+    const { isModalOpen } = useSelector((state) => state.util);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(currentUser());
-    // if (!user) dispatch(currentUser);
-  }, []);
+    useEffect(() => {
+        dispatch(currentUser());
+        // if (!user) dispatch(currentUser);
+    }, []);
 
-  console.log("APP", user);
+    console.log("APP", user);
 
-  return (
-    <div className="App">
-      {/* {isModalOpen && <Modal />} */}
-      {/* {error?.length > 0 && <Alert />} */}
-      <RecipeRoutes />
-    </div>
-  );
+    return (
+        <div className="App">
+            {isModalOpen && <Modal />}
+            {/* {error?.length > 0 && <Alert />} */}
+            <RecipeRoutes />
+        </div>
+    );
 }
 
 export default App;

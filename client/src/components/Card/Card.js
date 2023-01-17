@@ -6,6 +6,12 @@ import {
 } from "react-icons/io5";
 import { TiArrowForward } from "react-icons/ti";
 // import { useGlobalContext } from "../../Context/context";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    openModal,
+    likeRecipe,
+    unLikeRecipe,
+} from "../../features/util/utilSlice";
 
 const Card = ({
     category,
@@ -19,6 +25,8 @@ const Card = ({
     id,
 }) => {
     // const { openModal, likeRecipe, unlikeRecipe } = useGlobalContext();
+    const { myRecipes, loading } = useSelector((state) => state.recipe);
+    const dispatch = useDispatch();
     const baseUrl = "https://recipe-app-backend-4xd6.onrender.com";
 
     const toggleLikeRecepies = () => {
@@ -72,7 +80,7 @@ const Card = ({
                     </span>
                 </div>
                 <button className=" green card--btn">
-                    {/* <TiArrowForward onClick={() => openModal(id)} /> */}
+                    <TiArrowForward onClick={() => dispatch(openModal(id))} />
                 </button>
             </div>
         </div>
