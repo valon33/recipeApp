@@ -26,7 +26,7 @@ export const uploadPhoto = createAsyncThunk(
 const initialState = {
     isModalOpen: false,
     loading: false,
-    modalId: "",
+    modalRecipe: null,
     photoUploaded: "",
     error: [],
 };
@@ -37,12 +37,11 @@ export const utilSlice = createSlice({
     reducers: {
         openModal: (state, action) => {
             state.isModalOpen = true;
-            state.modalId = action.payload;
-            console.log("Modal", action);
+            state.modalRecipe = action.payload;
         },
         closeModal: (state) => {
             state.isModalOpen = false;
-            state.modalId = "";
+            state.modalRecipe = null;
         },
         clearError: (state, action) => {
             state.error = [];

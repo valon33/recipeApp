@@ -2,42 +2,40 @@
     display: block;
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
-    top: 0;
-    left: 0;
+    // top: 0px;
+    // left: 0;
+    // left: 50%;
+    // transform: translate(-50%, 0);
     z-index: 1055;
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     outline: 0;
 }
 
-.box-modal {
-    position: relative;
-}
-
-.hahah {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100000;
-    width: 100%;
-    height: 100%;
-    background-color: green;
-}
+// .box-modal {
+//     position: relative;
+//     width: 100vw;
+//     height: 100vh;
+//     margin: auto;
+// }
 
 .modal-content {
     display: flex;
     flex-direction: column;
     width: 1027px;
-    margin: 100px auto;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     z-index: 1000;
     padding: 15px;
     pointer-events: auto;
     background-color: #fff;
-    border-radius: 0.3rem;
     outline: 0;
 
     @media (max-width: 768px) {
@@ -75,6 +73,7 @@
 .modal-body-left,
 .modal-body-right {
     width: 50%;
+    height: 100%;
     padding: 15px;
 
     @media (max-width: 768px) {
@@ -82,9 +81,12 @@
     }
 }
 
+
+
 .modal-body-img {
-    width: 95%;
-    height: auto;
+    width: 445px;
+    height: 330px;
+    object-fit: cover;
     border-radius: 5px;
 }
 
@@ -110,7 +112,7 @@
 
 .modal--icons {
     display: flex;
-    margin-top: 25px;
+    margin-top: 15px;
 
     @media (max-width: 768px) {
        order: 6;
@@ -131,6 +133,24 @@
 .modal-recipe-text {
     font-size: 16px;
     white-space: pre-wrap;
+    height: 450px;
+    height: 60%;
+    padding: 0 5px;
+    overflow-y:scroll;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+    }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--midgrey);
+        border-radius: 20px;
+      }
 }
 
 .card--btn {

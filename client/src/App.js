@@ -6,18 +6,27 @@ import { currentUser } from "./features/auth/authSlice";
 
 import Modal from "./components/Modal/Modal";
 import Alert from "./components/Alert/Alert";
-import { useGlobalContext } from "./Context/context";
 
 function App() {
-    // const { isModalOpen, error } = useGlobalContext();
     const { user, loading } = useSelector((state) => state.auth);
     const { isModalOpen } = useSelector((state) => state.util);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(currentUser());
-        // if (!user) dispatch(currentUser);
+        // dispatch(currentUser());
+        // if (!user) dispatch(currentUser());
+
+        if (JSON.parse(localStorage.getItem("token")) !== "")
+            dispatch(currentUser());
     }, []);
+
+    useEffect(() => {
+        if (isModalOpen) {
+            window.document.body.style.overflowY = "hidden";
+        } else {
+            window.document.body.style.overflowY = "auto";
+        }
+    }, [isModalOpen]);
 
     console.log("APP", user);
 

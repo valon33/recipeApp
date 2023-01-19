@@ -1,7 +1,11 @@
 import React from "react";
 
-const Spinner = () => {
-  return <div className="loader"></div>;
+const Spinner = ({ size }) => {
+    return (
+        <div
+            className={`loader ${size ? "loader-" + size : "loader-bg"}`}
+        ></div>
+    );
 };
 
 export default Spinner;
