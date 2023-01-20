@@ -58,9 +58,10 @@ export const deleteRecipe = createAsyncThunk(
     return await API.delete(`/api/v1/recipes/${id}`);
   }
 );
-export const shareRecipe = (state) => {
-  return state.allRecipes;
-};
+
+export const likeRecipe = createAsyncThunk("util/likerecipe", async (id) => {
+  return await API.post(`/api/v1/recipes/like/${id}`);
+});
 
 const initialState = {
   loading: false,
@@ -72,6 +73,7 @@ const initialState = {
   newestRecipes: [],
   mostLikedRecipes: [],
   sortedRecipes: [],
+  likedrecipe: null,
 };
 
 export const recipeSlice = createSlice({
@@ -178,6 +180,15 @@ export const recipeSlice = createSlice({
       })
       .addCase(deleteRecipe.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(likeRecipe.fulfilled, (state, action) => {
+        console.log("Like Recipe", action.payload.data.data.likedRecipe);
+        state.likedrecipe = action.payload.data.data.likedRecipe;
+      })
+      .addCase(likeRecipe.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
