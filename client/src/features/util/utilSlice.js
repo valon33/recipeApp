@@ -5,84 +5,84 @@ import API from "../../http";
 //   await API.post(`/api/v1/recipes/like/${id}`);
 // });
 
-export const unLikeRecipe = createAsyncThunk(
-    "util/unlikerecipe",
-    async (id) => {
-        return await API.post(`/api/v1/recipes/unlike/${id}`);
-    }
-);
+// export const unLikeRecipe = createAsyncThunk(
+//   "util/unlikerecipe",
+//   async (id) => {
+//     return await API.post(`/api/v1/recipes/unlike/${id}`);
+//   }
+// );
 
 export const uploadPhoto = createAsyncThunk(
-    "util/uploadPhoto",
-    async (selectedPhoto) => {
-        const data = new FormData();
-        data.append("photo", selectedPhoto);
+  "util/uploadPhoto",
+  async (selectedPhoto) => {
+    const data = new FormData();
+    data.append("photo", selectedPhoto);
 
-        const photo = await API.post(`/api/v1/upload`, data);
-        return photo;
-    }
+    const photo = await API.post(`/api/v1/upload`, data);
+    return photo;
+  }
 );
 
 const initialState = {
-    isModalOpen: false,
-    loading: false,
-    modalRecipe: null,
-    photoUploaded: "",
-    error: [],
+  isModalOpen: false,
+  loading: false,
+  modalRecipe: null,
+  photoUploaded: "",
+  error: [],
 };
 
 export const utilSlice = createSlice({
-    name: "util",
-    initialState,
-    reducers: {
-        openModal: (state, action) => {
-            state.isModalOpen = true;
-            state.modalRecipe = action.payload;
-        },
-        closeModal: (state) => {
-            state.isModalOpen = false;
-            state.modalRecipe = null;
-        },
-        clearError: (state, action) => {
-            state.error = [];
-        },
+  name: "util",
+  initialState,
+  reducers: {
+    openModal: (state, action) => {
+      state.isModalOpen = true;
+      state.modalRecipe = action.payload;
     },
-    extraReducers: (builder) => {
-        // builder
-        //   .addCase(likeRecipe.fulfilled, (state, action) => {
-        //     console.log("Like Recipe", action.payload);
-        //   })
-        //   .addCase(likeRecipe.rejected, (state, action) => {
-        //     state.error = action.error.message;
-        //   });
-
-        builder.addCase(unLikeRecipe.pending, (state) => {
-            state.loading = true;
-        });
-
-        builder.addCase(unLikeRecipe.fulfilled, (state, action) => {
-            state.loading = false;
-            console.log("unliked recipe", action.payload);
-        });
-
-        builder.addCase(unLikeRecipe.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-        });
-
-        builder.addCase(uploadPhoto.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(uploadPhoto.fulfilled, (state, action) => {
-            state.loading = false;
-            state.photoUploaded = action.payload;
-        });
-        builder.addCase(uploadPhoto.rejected, (state, action) => {
-            state.loading = false;
-            state.photoUploaded = "";
-            state.error = action.error.message;
-        });
+    closeModal: (state) => {
+      state.isModalOpen = false;
+      state.modalRecipe = null;
     },
+    clearError: (state, action) => {
+      state.error = [];
+    },
+  },
+  extraReducers: (builder) => {
+    // builder
+    //   .addCase(likeRecipe.fulfilled, (state, action) => {
+    //     console.log("Like Recipe", action.payload);
+    //   })
+    //   .addCase(likeRecipe.rejected, (state, action) => {
+    //     state.error = action.error.message;
+    //   });
+
+    // builder.addCase(unLikeRecipe.pending, (state) => {
+    //   state.loading = true;
+    // });
+
+    // builder.addCase(unLikeRecipe.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   // console.log("unliked recipe", action.payload);
+    // });
+
+    // builder.addCase(unLikeRecipe.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.error.message;
+    // });
+
+    builder.addCase(uploadPhoto.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(uploadPhoto.fulfilled, (state, action) => {
+      state.loading = false;
+      state.photoUploaded = action.payload;
+    });
+    builder.addCase(uploadPhoto.rejected, (state, action) => {
+      state.loading = false;
+      state.photoUploaded = "";
+      state.error = action.error.message;
+    });
+  },
 });
 
 // Action creators are generated for each case reducer function
