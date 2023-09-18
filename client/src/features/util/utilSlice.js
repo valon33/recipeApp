@@ -17,7 +17,7 @@ export const uploadPhoto = createAsyncThunk(
   async (selectedPhoto) => {
     const data = new FormData();
     data.append("photo", selectedPhoto);
-
+console.log("from context " , data);
     const photo = await API.post(`/api/v1/upload`, data);
     return photo;
   }
