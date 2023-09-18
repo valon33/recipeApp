@@ -14,6 +14,7 @@ const Modal = () => {
   const modal = React.createRef();
   const { modalRecipe } = useSelector((state) => state.util);
   const dispatch = useDispatch();
+  const baseUrl = "https://res.cloudinary.com/valonsaidi/image/upload/";
 
   useEffect(() => {
     const handleModalClose = (e) => {
@@ -43,7 +44,7 @@ const Modal = () => {
             <img
               src={
                 modalRecipe.photo
-                  ? `/api/v1/upload/${modalRecipe.photo}`
+                  ? `${baseUrl}${modalRecipe.photo}`
                   : "https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Spinach-Tomato-Pasta-bowl-500x375.jpg"
               }
               className="modal-body-img"

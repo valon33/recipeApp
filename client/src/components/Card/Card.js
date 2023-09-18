@@ -24,7 +24,8 @@ const Card = ({
   const { allRecipes } = useSelector((state) => state.recipe);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const baseUrl = "https://recipe-app-backend-4xd6.onrender.com";
+  // const baseUrl = "https://recipe-app-backend-4xd6.onrender.com";
+  const baseUrl = "https://res.cloudinary.com/valonsaidi/image/upload/";
 
   useEffect(() => {
     const like = likes?.filter((rec) => rec.user === user?._id).length > 0;
@@ -54,7 +55,7 @@ const Card = ({
         <img
           src={
             photo
-              ? `${baseUrl}/api/v1/upload/${photo}`
+              ? `${baseUrl}${photo}`
               : "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2020/08/20/0/FNM_100120-Ultimate-Beef-Stew_s4x3.jpg.rend.hgtvcom.406.305.suffix/1597931275143.jpeg"
           }
           className="card-img-top"
