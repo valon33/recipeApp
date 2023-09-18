@@ -19,6 +19,7 @@ cloudinary.config({
         const result = await cloudinary.uploader.upload_stream(
           {
             resource_type: 'image',
+            public_id: req.files.photo.data.name
           //   folder: 'your_folder_name', // Optional: Replace with your desired folder name
           },
           (error, result) => {
@@ -39,4 +40,6 @@ cloudinary.config({
     };
 
 
-    
+    cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+  { public_id: "olympic_flag" }, 
+  function(error, result) {console.log(result); });
