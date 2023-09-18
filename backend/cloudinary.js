@@ -1,7 +1,5 @@
 const cloudinary = require('cloudinary').v2;
 
-const CLOUDINARY_BASE_URL="https://res.cloudinary.com/valonsaidi/image/upload/"
-          
 cloudinary.config({ 
   cloud_name: 'valonsaidi', 
   api_key: '561292783227646', 
@@ -38,4 +36,3 @@ cloudinary.config({
         console.error('Error uploading image:', error);
       }
     };
-    
