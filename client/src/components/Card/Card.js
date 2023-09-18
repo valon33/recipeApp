@@ -55,7 +55,7 @@ const Card = ({
         <img
           src={
             photo
-              ? `${baseUrl}${photo}`
+              ? `${baseUrl + photo}`
               : "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2020/08/20/0/FNM_100120-Ultimate-Beef-Stew_s4x3.jpg.rend.hgtvcom.406.305.suffix/1597931275143.jpeg"
           }
           className="card-img-top"
