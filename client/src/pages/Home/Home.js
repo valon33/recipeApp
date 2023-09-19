@@ -20,17 +20,17 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getRecipes());
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
         dispatch(getRecipes());
         token !== null && token !== "" && setToken(token);
-    }, [token,dispatch]);
+    }, [token]);
 
     useEffect(() => {
         dispatch(mostLiked());
         dispatch(newest());
-    }, [allRecipes , dispatch]);
+    }, [allRecipes]);
 
     return (
         <MainLayout>
