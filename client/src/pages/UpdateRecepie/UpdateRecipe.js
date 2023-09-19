@@ -83,7 +83,7 @@ const UpdateRecipe = () => {
         ) {
             if (selectedFile) {
                 const photo = selectedFile.name;
-                dispatch(uploadPhoto(selectedFile));
+                dispatch(uploadPhoto({selectedPhoto:selectedFile, photoName:photo}));
                 dispatch(
                     updateRecipe({
                         id,
