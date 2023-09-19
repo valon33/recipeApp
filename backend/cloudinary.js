@@ -11,7 +11,7 @@ cloudinary.config({
     try {
         // const bufferData = req.data
         console.log("wdadsfreaqwe", req.files.photo.data);
-        console.log("filename ", req.files.photo.data.filename);
+        console.log("filename ", req.files.photo.name);
         console.log("wtf ", req.files.photo);
         const bufferData = req.files.photo.data
     
@@ -19,7 +19,7 @@ cloudinary.config({
         const result = await cloudinary.uploader.upload_stream(
           {
             resource_type: 'image',
-            public_id: req.files.photo.data.name
+            public_id: req.files.photo.name
           //   folder: 'your_folder_name', // Optional: Replace with your desired folder name
           },
           (error, result) => {
