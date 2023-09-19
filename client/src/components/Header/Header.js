@@ -4,7 +4,6 @@ import NavLinks from "../Navigation/NavLinks/NavLinks";
 import NavButtons from "../Navigation/NavButtons/NavButtons";
 import ResButton from "../ResButton/ResButton";
 import { useSelector } from "react-redux";
-import Alert from "../Alert/Alert";
 import Spinner from "../Spinner/Spinner";
 
 const Header = () => {
