@@ -7,13 +7,15 @@ import { currentUser } from "./features/auth/authSlice";
 import Modal from "./components/Modal/Modal";
 
 function App() {
-    const { user } = useSelector((state) => state.auth);
     const { isModalOpen } = useSelector((state) => state.util);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(currentUser());
-    }, [user]);
+
+        if (JSON.parse(localStorage.getItem("token")) !== "")
+            dispatch(currentUser());
+    }, []);
 
     useEffect(() => {
         if (isModalOpen) {
