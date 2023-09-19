@@ -10,7 +10,7 @@ cloudinary.config({
   exports.fileUploadCloudinary = async (req, res) => {
     try {
         // const bufferData = req.data
-        console.log("wdadsfreaqwe", req.files.photo.data);
+        console.log("wdadsfreaqwe", req.files.photo.data.name);
         const bufferData = req.files.photo.data
     
         // Upload the Buffer as an image

@@ -48,6 +48,11 @@ const Card = ({
     dispatch(openModal(recipe));
   };
 
+  // console.log("URL", baseUrl + photo );
+  console.log("PHOTO-NAME",photo);
+  // console.log(typeof photo );
+  const str= (baseUrl + photo )
+
   return (
     <div className="card">
       <div className="card__img">
@@ -55,8 +60,10 @@ const Card = ({
         <img
           src={
             photo
-              ? `${baseUrl + photo}`
-              : "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2020/08/20/0/FNM_100120-Ultimate-Beef-Stew_s4x3.jpg.rend.hgtvcom.406.305.suffix/1597931275143.jpeg"
+              ? str
+              // ? `${baseUrl + photo}`
+              : null
+              // : "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2020/08/20/0/FNM_100120-Ultimate-Beef-Stew_s4x3.jpg.rend.hgtvcom.406.305.suffix/1597931275143.jpeg"
           }
           className="card-img-top"
           alt="card img"
