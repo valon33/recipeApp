@@ -75,12 +75,11 @@ const CreateRecipe = () => {
     ) {
       if (selectedFile) {
         const photo = selectedFile.name;
-        const photoName = selectedFile.name;
         // const photo = JSON.stringify(selectedFile.name);
         console.log("photo", photo);
         console.log("selectedFile", selectedFile);
 
-        dispatch(uploadPhoto({selectedFile, photoName}));
+        dispatch(uploadPhoto({selectedPhoto:selectedFile, photoName:photo}));
         dispatch(
           createRecipe({
             recipe,
