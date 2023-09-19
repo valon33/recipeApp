@@ -10,16 +10,15 @@ cloudinary.config({
   exports.fileUploadCloudinary = async (req, res) => {
     try {
         // const bufferData = req.data
-        console.log("wdadsfreaqwe", req.files.photo.data);
-        console.log("filename ", req.files.photo.name);
-        console.log("wtf ", req.files.photo);
+        const photoName = req.files.photo.name.split(".")[0]
+        console.log("filename ", photoName);
         const bufferData = req.files.photo.data
     
         // Upload the Buffer as an image
         const result = await cloudinary.uploader.upload_stream(
           {
             resource_type: 'image',
-            public_id: req.files.photo.name
+            public_id: photoName
           //   folder: 'your_folder_name', // Optional: Replace with your desired folder name
           },
           (error, result) => {
