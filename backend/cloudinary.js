@@ -9,9 +9,7 @@ cloudinary.config({
 
   exports.fileUploadCloudinary = async (req, res) => {
     try {
-        // const bufferData = req.data
         const photoName = req.files.photo.name.split(".")[0]
-        console.log("filename ", photoName);
         const bufferData = req.files.photo.data
     
         // Upload the Buffer as an image
@@ -19,19 +17,16 @@ cloudinary.config({
           {
             resource_type: 'image',
             public_id: photoName
-          //   folder: 'your_folder_name', // Optional: Replace with your desired folder name
           },
           (error, result) => {
             if (error) {
               console.error('Error uploading image:', error);
             } else {
               console.log('Upload result:', result);
-              // The uploaded image details will be available in the 'result' object.
             }
           }
         );
     
-        // Write the Buffer data to the stream
         result.end(bufferData);
       } catch (error) {
         console.error('Error uploading image:', error);

@@ -94,12 +94,6 @@ exports.changeUserPassword = catchAsync(async (req, res, next) => {
   if (!req.user) {
     return next(new AppError("There is no User with that Id", 404));
   }
-  console.log(req.user);
-  // const user = await User.findOne({ email });
-
-  // if (!user) {
-  //   return next(new AppError("Bad request. Email not registered.", 400));
-  // }
 
   if (!bcrypt.compareSync(req.body.oldPassword, req.user.password)) {
     return next(new AppError("Bad request.Old Password do not match.", 400));

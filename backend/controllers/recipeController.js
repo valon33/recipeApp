@@ -7,9 +7,6 @@ const AppError = require("../utils/appError");
 exports.getAllRecipes = catchAsync(async (req, res, next) => {
     const recipe = await Recipe.find();
 
-    // console.log(req.loggedInUser);
-    console.log(req.headers);
-
     res.status(200).json({
         status: "success",
         numOfRecipes: recipe.length,
@@ -21,10 +18,7 @@ exports.getAllRecipes = catchAsync(async (req, res, next) => {
 
 exports.getMyrecipes = catchAsync(async (req, res, next) => {
     const recipes = await Recipe.find({ author: req.user._id });
-    console.log("😂😂😂");
-    console.log(req.headers);
-
-    // console.log(recipes);
+    
     res.status(200).json({
         status: "success",
         numOfRecipes: recipes.length,
@@ -97,7 +91,6 @@ exports.likeRecipe = catchAsync(async (req, res, next) => {
     recipe.likes.unshift({ user: req.user._id });
 
     const likedRecipe = await recipe.save();
-    console.log("Nr Like Controller", likedRecipe);
 
     res.status(200).json({
         status: "success",
