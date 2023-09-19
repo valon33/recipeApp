@@ -11,7 +11,8 @@ cloudinary.config({
     try {
         // const bufferData = req.data
         console.log("wdadsfreaqwe", req.files.photo.data);
-        console.log("filename ", req.files.photo.filename);
+        console.log("filename ", req.files.photo.data.filename);
+        console.log("wtf ", req.files.photo);
         const bufferData = req.files.photo.data
     
         // Upload the Buffer as an image
