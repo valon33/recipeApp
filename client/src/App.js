@@ -12,11 +12,7 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(currentUser());
-        if (!user) dispatch(currentUser());
-
-        if (JSON.parse(localStorage.getItem("token")) !== "")
-            dispatch(currentUser());
+        dispatch(currentUser());
     }, [user]);
 
     useEffect(() => {
