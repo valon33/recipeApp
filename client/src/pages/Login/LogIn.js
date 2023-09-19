@@ -6,7 +6,6 @@ import Input from "../../components/Form/Input";
 import Button from "../../components/Button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
-import useLocalStorage from "../../hooks/useLocalStorage";
 
 const LogIn = () => {
   const { user } = useSelector((state) => state.auth);
@@ -17,9 +16,8 @@ const LogIn = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(user);
     user && navigate("/");
-  }, []);
+  }, [user, navigate]);
 
   
   const handleChange = (e) => {

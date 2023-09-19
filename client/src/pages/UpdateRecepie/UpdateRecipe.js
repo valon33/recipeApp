@@ -13,8 +13,7 @@ import { uploadPhoto } from "../../features/util/utilSlice";
 const UpdateRecipe = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    //   const { user: currentUser } = useSelector((state) => state.auth);
-    const { myRecipes, loading } = useSelector((state) => state.recipe);
+    const { myRecipes } = useSelector((state) => state.recipe);
     const dispatch = useDispatch();
 
     const [inputValue, setInputValue] = useState({
@@ -50,7 +49,7 @@ const UpdateRecipe = () => {
             recipe: rec[0].recipe,
             photo: rec[0].photo,
         }));
-    }, []);
+    }, [id, myRecipes]);
 
     useEffect(() => {
         if (selectedFile) {

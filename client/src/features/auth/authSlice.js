@@ -39,14 +39,11 @@ export const currentUser = createAsyncThunk("auth/currentuser", async () => {
 });
 
 export const updateUser = createAsyncThunk("auth/updateuser", async (user) => {
-  console.log("user from api", user);
-  console.log("id from api", user.id);
   return await API.patch(`/api/v1/users/${user.id}`, { ...user });
 });
 export const changeUserPassword = createAsyncThunk(
   "auth/changepassword",
   async (user) => {
-    console.log("changePassword", user);
     return await API.patch(`/api/v1/users/changepassword`, {
       oldPassword: user.oldPassword,
       password: user.password,
@@ -79,7 +76,6 @@ export const userSlice = createSlice({
         state.token = action.payload.data.data.token;
       })
       .addCase(login.rejected, (state, action) => {
-        console.log("error action", action);
         state.loading = false;
         state.isLoggedIn = false;
         state.user = null;
@@ -100,7 +96,6 @@ export const userSlice = createSlice({
       })
       .addCase(currentUser.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("curr", action.payload.data.user);
         state.user = action.payload.data.user;
         state.isLoggedIn = true;
       })
@@ -134,7 +129,6 @@ export const userSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("from redux", action.payload);
         state.user = action.payload.data.data.user;
       })
       .addCase(updateUser.rejected, (state, action) => {
@@ -148,7 +142,6 @@ export const userSlice = createSlice({
       })
       .addCase(changeUserPassword.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("from redux change password", action.payload);
         state.user = action.payload.data.data.user;
       })
       .addCase(changeUserPassword.rejected, (state, action) => {

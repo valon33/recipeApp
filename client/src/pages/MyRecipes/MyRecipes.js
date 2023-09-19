@@ -19,7 +19,6 @@ const MyRecipes = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log("myRecipes", myRecipes);
     return (
         <MainLayout>
             <PageTitle

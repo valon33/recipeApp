@@ -1,8 +1,6 @@
 import React from "react";
 
 const ResButton = ({ isClicked, setIsClicked }) => {
-  //   const [isClicked, setIsClicked] = useState(false);
-  // console.log(isClicked, setIsClicked);
   return (
     <div onClick={() => setIsClicked(!isClicked)} className="res-nav-button">
       <div className={isClicked ? "change-bar1" : "bar1"}></div>

@@ -19,19 +19,16 @@ const Card = ({
   photo,
   id,
 }) => {
-  // const { openModal, likeRecipe, unlikeRecipe } = useGlobalContext();
   const [isLiked, setIsLiked] = useState(false);
   const { allRecipes } = useSelector((state) => state.recipe);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  // const baseUrl = "https://recipe-app-backend-4xd6.onrender.com";
   const baseUrl = "https://res.cloudinary.com/valonsaidi/image/upload/";
 
   useEffect(() => {
     const like = likes?.filter((rec) => rec.user === user?._id).length > 0;
-    console.log("like", like);
     setIsLiked(like);
-  }, [allRecipes]);
+  }, [allRecipes,likes, user?._id]);
 
   const toggleLikeRecepies = () => {
     if (isLiked === false) {
@@ -48,10 +45,6 @@ const Card = ({
     dispatch(openModal(recipe));
   };
 
-  // console.log("URL", baseUrl + photo );
-  console.log("PHOTO-NAME",photo);
-  // console.log(typeof photo );
-  const str= (baseUrl + photo )
 
   return (
     <div className="card">
@@ -60,10 +53,8 @@ const Card = ({
         <img
           src={
             photo
-              ? str
-              // ? `${baseUrl + photo}`
+              ? `${baseUrl + photo}`
               : null
-              // : "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2020/08/20/0/FNM_100120-Ultimate-Beef-Stew_s4x3.jpg.rend.hgtvcom.406.305.suffix/1597931275143.jpeg"
           }
           className="card-img-top"
           alt="card img"

@@ -75,9 +75,6 @@ const CreateRecipe = () => {
     ) {
       if (selectedFile) {
         const photo = selectedFile.name;
-        // const photo = JSON.stringify(selectedFile.name);
-        console.log("photo", photo);
-        console.log("selectedFile", selectedFile);
 
         dispatch(uploadPhoto({selectedPhoto:selectedFile, photoName:photo}));
         dispatch(
@@ -109,7 +106,7 @@ const CreateRecipe = () => {
       }
     }
 
-    // navigate("/myrecipes");
+    navigate("/myrecipes");
   };
 
   return (
@@ -118,7 +115,7 @@ const CreateRecipe = () => {
         description="My Recipie"
         logo={
           <TiArrowBack
-            onClick={() => console.log("go back")}
+            onClick={() => navigate("/myrecipes")}
             style={{ cursor: "pointer" }}
           />
         }

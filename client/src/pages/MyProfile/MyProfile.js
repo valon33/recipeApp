@@ -9,7 +9,7 @@ import { updateUser } from "../../features/auth/authSlice";
 import { uploadPhoto } from "../../features/util/utilSlice";
 
 const MyProfile = () => {
-    const { user: currentUser, loading } = useSelector((state) => state.auth);
+    const { user: currentUser } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     const [selectedFile, setSelectedFile] = useState(null);

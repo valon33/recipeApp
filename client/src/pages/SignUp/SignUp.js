@@ -22,9 +22,8 @@ const SignUp = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(user);
     user && navigate("/");
-  }, []);
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +36,7 @@ const SignUp = () => {
   const SubmitSignUp = async (e) => {
     e.preventDefault();
     dispatch(signUp(inputValue));
+    navigate('/')
   };
 
   return (

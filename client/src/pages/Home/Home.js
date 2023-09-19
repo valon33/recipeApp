@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import _ from "lodash";
+import React, { useEffect } from "react";
 import MainLayout from "../../layouts/MainLayout";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Spinner from "../../components/Spinner/Spinner";
@@ -13,27 +12,25 @@ import {
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 const Home = () => {
-    const { user, isLoggedIn, token } = useSelector((state) => state.auth);
+    const { user, token } = useSelector((state) => state.auth);
     const { allRecipes, loading, newestRecipes, mostLikedRecipes } =
         useSelector((state) => state.recipe);
     const { setValue: setToken } = useLocalStorage("token", null);
     const dispatch = useDispatch();
 
-    console.log("Home", token);
-
     useEffect(() => {
         dispatch(getRecipes());
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getRecipes());
         token !== null && token !== "" && setToken(token);
-    }, [token]);
+    }, [token,dispatch,setToken]);
 
     useEffect(() => {
         dispatch(mostLiked());
         dispatch(newest());
-    }, [allRecipes]);
+    }, [allRecipes , dispatch]);
 
     return (
         <MainLayout>
