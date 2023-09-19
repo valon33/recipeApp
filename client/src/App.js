@@ -17,7 +17,7 @@ function App() {
 
         if (JSON.parse(localStorage.getItem("token")) !== "")
             dispatch(currentUser());
-    }, [dispatch, user]);
+    }, [user]);
 
     useEffect(() => {
         if (isModalOpen) {
