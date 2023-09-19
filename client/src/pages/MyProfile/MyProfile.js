@@ -45,7 +45,7 @@ const MyProfile = () => {
         const id = currentUser._id;
         if (selectedFile) {
             let photo = selectedFile.name;
-            dispatch(uploadPhoto(selectedFile));
+            dispatch(uploadPhoto({selectedPhoto:selectedFile, photoName:photo}));
             dispatch(
                 updateUser({
                     id,
