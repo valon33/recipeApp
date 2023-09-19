@@ -77,7 +77,7 @@ const MyProfile = () => {
                     <img
                         src={
                             photo && !previewImg
-                                ? `http://localhost:5000/api/v1/upload/${photo}`
+                                ? `https://res.cloudinary.com/valonsaidi/image/upload/${photo}`
                                 : previewImg ||
                                   (!photo &&
                                       !previewImg &&
