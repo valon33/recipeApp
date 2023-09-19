@@ -25,7 +25,7 @@ const Home = () => {
     useEffect(() => {
         dispatch(getRecipes());
         token !== null && token !== "" && setToken(token);
-    }, [token,dispatch,setToken]);
+    }, [token,dispatch]);
 
     useEffect(() => {
         dispatch(mostLiked());

@@ -126,7 +126,6 @@ export const recipeSlice = createSlice({
       })
       .addCase(createRecipe.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("Created Recipe", action.payload.data.data);
         state.createdRecipe = action.payload;
       })
       .addCase(createRecipe.rejected, (state, action) => {
@@ -201,7 +200,6 @@ export const recipeSlice = createSlice({
           action.payload.data.data.likedRecipe,
         ];
 
-        console.log("newObj", newObj);
         state.allRecipes = newObj;
       })
       .addCase(likeRecipe.rejected, (state, action) => {
@@ -210,12 +208,6 @@ export const recipeSlice = createSlice({
 
     builder
       .addCase(unLikeRecipe.fulfilled, (state, action) => {
-        console.log(
-          "unlikedRecipe Recipe",
-          action.payload.data.data.unlikedRecipe,
-          action.payload
-        );
-
         state.loading = false;
         const { allRecipes } = current(state);
         const id = action.payload.data.data.unlikedRecipe._id;

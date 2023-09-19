@@ -75,7 +75,6 @@ exports.updateRecipe = catchAsync(async (req, res, next) => {
 exports.likeRecipe = catchAsync(async (req, res, next) => {
     const recipe = await Recipe.findById(req.params.id);
 
-    console.log("Pi te Like Controller", recipe);
 
     if (!recipe) {
         return next(new AppError("There is no Recipe with that ID", 404));
